@@ -1,14 +1,22 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="Referidos.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Referidos"
-    Shell.FlyoutBehavior="Disabled">
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:Referidos"
+        x:Class="Referidos.AppShell"
+       Shell.FlyoutBehavior="Flyout">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <!-- Home y RegistroUsuarioPage tienen flecha de navegación -->
+    <TabBar>
+        <Tab Title="Home">
+            <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
+        </Tab>
+        <Tab Title="Registro">
+            <ShellContent Route="RegistroUsuarioPage" ContentTemplate="{DataTemplate local:Views.RegistroUsuarioPage}" />
+        </Tab>
+    </TabBar>
+
+    <!-- PrincipalPage aparece en el menú de hamburguesa (flyout) -->
+    <FlyoutItem Title="Principal" Icon="icon_principal.png">
+        <ShellContent Route="PrincipalPage" ContentTemplate="{DataTemplate local:Views.PrincipalPage}" />
+    </FlyoutItem>
 
 </Shell>

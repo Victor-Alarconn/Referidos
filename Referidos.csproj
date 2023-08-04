@@ -49,11 +49,26 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="MySqlConnector" Version="2.2.7" />
+	  <None Remove="Resources\Images\llaveslogo.png" />
+	  <None Remove="Resources\Images\logoinicial.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModels\" />
+	  <PackageReference Include="MySqlConnector" Version="2.2.7" />
+	  <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
+	  <PackageReference Include="Xamarin.Essentials" Version="1.7.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PrincipalPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\RegistroUsuarioPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

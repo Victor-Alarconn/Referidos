@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Referidos.Views.RegistroUsuarioPage"
+             Title="RegistroUsuarioPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ScrollView Grid.Row="1">
+            <StackLayout Spacing="20" Padding="20">
+                <Label Text="Registro de Usuario" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" />
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Nombre completo" Text="{Binding NombreCompleto}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Cédula" Keyboard="Numeric" Text="{Binding Cedula}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Correo (opcional)" Text="{Binding Correo}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Teléfono" Keyboard="Numeric" Text="{Binding Telefono}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Ciudad" Text="{Binding Ciudad}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Cargo (opcional)" Text="{Binding Cargo}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Empresa/Independiente (opcional)" Text="{Binding Empresa}" />
+                </Frame>
+
+                <Button Text="Registrar" Command="{Binding EnviarCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#7474db" TextColor="White" FontAttributes="Bold" CornerRadius="10" />
+
+                <Label Text="* Campos opcionales" FontSize="Micro" TextColor="Gray" HorizontalOptions="Center" />
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
+
