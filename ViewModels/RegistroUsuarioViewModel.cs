@@ -113,6 +113,9 @@ namespace Referidos.ViewModels
                 return; // Salir del método si hay campos requeridos vacíos
             }
 
+            // Guardar el nombre en la caché
+            Preferences.Set("NombreUsuarioCache", NombreCompleto);
+
             try
             {
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
@@ -146,16 +149,7 @@ namespace Referidos.ViewModels
             }
         }
 
-        private void RecuperarDatosUsuario()
-        {
-            NombreCompleto = Preferences.Get("NombreCompleto", string.Empty);
-            Cedula = Preferences.Get("Cedula", 0);
-            Correo = Preferences.Get("Correo", string.Empty);
-            Telefono = Preferences.Get("Telefono", 0);
-            Ciudad = Preferences.Get("Ciudad", string.Empty);
-            Empresa = Preferences.Get("Empresa", string.Empty);
-            Cargo = Preferences.Get("Cargo", string.Empty);
-        }
+
 
         private async Task MostrarAlertaExito()
         {

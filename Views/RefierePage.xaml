@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Referidos.Views.RefierePage"
+             Title="RefierePage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ScrollView Grid.Row="1">
+            <StackLayout Spacing="20" Padding="20">
+                <Label Text="Registro de Cliente" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" />
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Nombre completo" Text="{Binding NombreCompletoRefe}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Telefono" Keyboard="Numeric" Text="{Binding TelefonoRefe}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Correo (opcional)" Text="{Binding CorreoRefe}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Picker Title="Seleccionar tipo" ItemsSource="{Binding TiposReferencia}" SelectedItem="{Binding TipoRefe}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Nombre de la empresa" Text="{Binding EmpresaRefe}" />
+                </Frame>
+
+                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Notas (opcional)" Text="{Binding NotasRefe}" />
+                </Frame>
+
+                <Button Text="Registrar Cliente" Command="{Binding EnviarRefeCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#7474db" TextColor="White" FontAttributes="Bold" CornerRadius="10" />
+
+                <Label Text="* Campos opcionales" FontSize="Micro" TextColor="Gray" HorizontalOptions="Center" />
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

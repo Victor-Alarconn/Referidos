@@ -49,8 +49,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\imgrPrincipal.png" />
+	  <None Remove="Resources\Images\inicio.png" />
 	  <None Remove="Resources\Images\llaveslogo.png" />
 	  <None Remove="Resources\Images\logoinicial.png" />
+	  <None Remove="Resources\Images\progreso.png" />
+	  <None Remove="Resources\Images\refiere.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -64,6 +68,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PrincipalPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ProgresoPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\RefierePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RegistroUsuarioPage.xaml">

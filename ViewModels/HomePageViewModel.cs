@@ -16,6 +16,11 @@ namespace Referidos.ViewsModels
     {
         public ICommand RegistroCommand { get; private set; }
         public ICommand EnvioClaveCommand { get; private set; }
+        public HomePageViewModel()
+        {
+            RegistroCommand = new Command(Aceptar);
+            EnvioClaveCommand = new Command(EnviarClave);
+        }
 
         private string _clave;
         public string Clave
@@ -26,12 +31,6 @@ namespace Referidos.ViewsModels
                 _clave = value;
                 OnPropertyChanged(nameof(Clave));
             }
-        }
-
-        public HomePageViewModel()
-        {
-            RegistroCommand = new Command(Aceptar);
-            EnvioClaveCommand = new Command(EnviarClave);
         }
 
         private void Aceptar()

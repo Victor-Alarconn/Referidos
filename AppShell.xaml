@@ -15,8 +15,20 @@
     </TabBar>
 
     <!-- PrincipalPage aparece en el menú de hamburguesa (flyout) -->
-    <FlyoutItem Title="Principal" Icon="icon_principal.png">
+    <FlyoutItem Title="Inicio" Icon="inicio.png">
         <ShellContent Route="PrincipalPage" ContentTemplate="{DataTemplate local:Views.PrincipalPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Refiere" Icon="refiere.png">
+        <ShellContent Route="RefierePage" ContentTemplate="{DataTemplate local:Views.RefierePage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Progreso" Icon="progreso.png">
+        <ShellContent Route="Progreso" ContentTemplate="{DataTemplate local:Views.ProgresoPage}" />
+    </FlyoutItem>
+    
+    <Shell.FlyoutFooter>
+        <StackLayout Padding="20">
+            <Button Text="Salir" Command="{Binding SalirCommand}" BackgroundColor="SkyBlue"/>
+        </StackLayout>
+    </Shell.FlyoutFooter>
 
 </Shell>
