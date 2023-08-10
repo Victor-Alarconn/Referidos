@@ -1,20 +1,31 @@
+<!-- Este será tu Shell para usuarios registrados -->
+
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:Referidos"
-        x:Class="Referidos.AppShell"
+       x:Class="Referidos.AppShell"
        Shell.FlyoutBehavior="Flyout">
+    <Shell.Resources>
+        <DataTemplate x:Key="FlyoutItemTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <!-- Esto define el ancho del icono -->
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding Icon}" WidthRequest="40" HeightRequest="40"/>
+                <!-- Esto define el tamaño del icono -->
+                <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.Resources>
 
-    <!-- Home y RegistroUsuarioPage tienen flecha de navegación -->
-    <TabBar>
-        <Tab Title="Home">
-            <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
-        </Tab>
-        <Tab Title="Registro">
-            <ShellContent Route="RegistroUsuarioPage" ContentTemplate="{DataTemplate local:Views.RegistroUsuarioPage}" />
-        </Tab>
-    </TabBar>
+    <!-- Luego referencia el recurso en la plantilla de elementos -->
+    <Shell.ItemTemplate>
+        <StaticResource Key="FlyoutItemTemplate" />
+    </Shell.ItemTemplate>
 
-    <!-- PrincipalPage aparece en el menú de hamburguesa (flyout) -->
+    <!-- Luego define tus FlyoutItems y otros elementos -->
     <FlyoutItem Title="Inicio" Icon="inicio.png">
         <ShellContent Route="PrincipalPage" ContentTemplate="{DataTemplate local:Views.PrincipalPage}" />
     </FlyoutItem>
@@ -24,11 +35,12 @@
     <FlyoutItem Title="Progreso" Icon="progreso.png">
         <ShellContent Route="Progreso" ContentTemplate="{DataTemplate local:Views.ProgresoPage}" />
     </FlyoutItem>
-    
+
     <Shell.FlyoutFooter>
         <StackLayout Padding="20">
             <Button Text="Salir" Command="{Binding SalirCommand}" BackgroundColor="SkyBlue"/>
         </StackLayout>
     </Shell.FlyoutFooter>
+    
 
 </Shell>

@@ -1,0 +1,23 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:local="clr-namespace:Referidos.Views"
+             x:Class="Referidos.Views.MenuPage">
+    
+    <StackLayout VerticalOptions="FillAndExpand">
+        <!-- Cabecera del menú (opcional) -->
+        <StackLayout Padding="10">
+            <Image Source="tu_imagen.png" WidthRequest="100" HeightRequest="100"/>
+            <Label Text="Nombre del Usuario" HorizontalOptions="CenterAndExpand"/>
+        </StackLayout>
+
+        <!-- Lista de opciones del menú -->
+        <ListView x:Name="MenuListView"
+                  ItemSelected="OnMenuItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Title}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

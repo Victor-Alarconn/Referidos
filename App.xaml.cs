@@ -1,4 +1,5 @@
 ﻿using Referidos.Views;
+using Microsoft.Maui.Controls;
 
 namespace Referidos
 {
@@ -12,15 +13,13 @@ namespace Referidos
 
             if (!string.IsNullOrEmpty(claveGuardada))
             {
-                // Si la clave está presente en la caché, navegar a la PrincipalPage dentro del Shell
+                // Si la clave está presente en la caché, mostrar el Shell para usuarios registrados
                 MainPage = new AppShell();
-                MainPage.Navigation.PushAsync(new PrincipalPage());
             }
             else
             {
-                // Si la clave no está presente en la caché, navegar a la HomePage dentro del Shell
-                MainPage = new AppShell();
-                MainPage.Navigation.PushAsync(new HomePage());
+                // Si la clave no está presente en la caché, mostrar las páginas para usuarios no registrados
+                MainPage = new NavigationPage(new HomePage());
             }
         }
     }

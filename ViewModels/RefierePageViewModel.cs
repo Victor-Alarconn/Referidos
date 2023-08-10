@@ -68,8 +68,8 @@ namespace Referidos.ViewModels
             }
         }
 
-        private int _telefonoR;
-        public int TelefonoRefe
+        private string _telefonoR;
+        public string TelefonoRefe
         {
             get => _telefonoR;
             set
@@ -119,7 +119,7 @@ namespace Referidos.ViewModels
             string NombreUsuario = Preferences.Get("NombreUsuarioCache", string.Empty);
 
             // Validar que los campos requeridos no estén vacíos
-            if (string.IsNullOrEmpty(NombreCompletoRefe) || TelefonoRefe == 0)
+            if (string.IsNullOrEmpty(NombreCompletoRefe) || !int.TryParse(TelefonoRefe, out int numeroTelefono) || numeroTelefono == 0)
             {
                 // Mostrar el mensaje de error utilizando DisplayAlert
                 await Application.Current.MainPage.DisplayAlert("Error", "Faltan campos por rellenar.", "OK");
@@ -163,11 +163,21 @@ namespace Referidos.ViewModels
         {
             // Mostrar el mensaje de éxito utilizando DisplayAlert
             await Application.Current.MainPage.DisplayAlert("Registro Exitoso", "El cliente fue guardado con éxito.", "OK");
-
+            LimpiarDatos(); // Limpia los datos del formulario
             // Redireccionar a la página PrincipalPage
             await Application.Current.MainPage.Navigation.PushAsync(new PrincipalPage());
         }
 
+        private void LimpiarDatos()
+        {
+            NombreCompletoRefe = string.Empty;
+            TelefonoRefe = string.Empty;
+            CorreoRefe = string.Empty;
+            EmpresaRefe = string.Empty;
+            NotasRefe = string.Empty;
+            TipoRefe = null;
+            // Y cualquier otro campo que desees restablecer
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

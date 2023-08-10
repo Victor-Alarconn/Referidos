@@ -11,10 +11,25 @@ namespace Referidos.ViewModels
     public partial class AppShellViewModel : INotifyPropertyChanged
     {
         public ICommand SalirCommand { get; private set; }
+        private string _nombreUsuarioCache;
+
+        public string NombreUsuarioCache
+        {
+            get => _nombreUsuarioCache;
+            set
+            {
+                if (_nombreUsuarioCache != value)
+                {
+                    _nombreUsuarioCache = value;
+                    OnPropertyChanged(nameof(NombreUsuarioCache));
+                }
+            }
+        }
 
         public AppShellViewModel()
         {
             SalirCommand = new Command(Salir);
+            NombreUsuarioCache = Preferences.Get("NombreUsuarioCache", string.Empty);
         }
 
         private void Salir()

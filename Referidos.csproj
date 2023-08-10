@@ -30,6 +30,10 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -49,12 +53,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\correo.png" />
+	  <None Remove="Resources\Images\empresa.png" />
+	  <None Remove="Resources\Images\empresa1.png" />
 	  <None Remove="Resources\Images\imgrPrincipal.png" />
 	  <None Remove="Resources\Images\inicio.png" />
 	  <None Remove="Resources\Images\llaveslogo.png" />
 	  <None Remove="Resources\Images\logoinicial.png" />
 	  <None Remove="Resources\Images\progreso.png" />
 	  <None Remove="Resources\Images\refiere.png" />
+	  <None Remove="Resources\Images\telefono.png" />
+	  <None Remove="Resources\Images\user1.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -65,6 +74,12 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\FlyoutMenuPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MenuPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PrincipalPage.xaml">

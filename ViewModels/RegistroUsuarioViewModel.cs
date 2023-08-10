@@ -34,8 +34,8 @@ namespace Referidos.ViewModels
             }
         }
 
-        private int _cedula;
-        public int Cedula
+        private string _cedula;
+        public string Cedula
         {
             get => _cedula;
             set
@@ -56,8 +56,8 @@ namespace Referidos.ViewModels
             }
         }
 
-        private int _telefono;
-        public int Telefono
+        private string _telefono;
+        public string Telefono
         {
             get => _telefono;
             set
@@ -78,25 +78,14 @@ namespace Referidos.ViewModels
             }
         }
 
-        private string _empresa;
-        public string Empresa
+        private string _asesor;
+        public string Asesor
         {
-            get => _empresa;
+            get => _asesor;
             set
             {
-                _empresa = value;
-                OnPropertyChanged(nameof(Empresa));
-            }
-        }
-
-        private string _cargo;
-        public string Cargo
-        {
-            get => _cargo;
-            set
-            {
-                _cargo = value;
-                OnPropertyChanged(nameof(Cargo));
+                _asesor = value;
+                OnPropertyChanged(nameof(Asesor));
             }
         }
 
@@ -106,7 +95,7 @@ namespace Referidos.ViewModels
             string id = CrossDeviceInfo.Current.Id;
 
             // Validar que los campos requeridos no estén vacíos
-            if (string.IsNullOrEmpty(NombreCompleto) || Cedula == 0 || Telefono == 0 || string.IsNullOrEmpty(Ciudad))
+            if (string.IsNullOrEmpty(NombreCompleto) || string.IsNullOrEmpty(Correo) || !int.TryParse(Cedula, out int cedula) || cedula == 0 || !int.TryParse(Telefono, out int numeroTelefono) || numeroTelefono == 0 || string.IsNullOrEmpty(Ciudad))
             {
                 // Mostrar el mensaje de error utilizando DisplayAlert
                 await Application.Current.MainPage.DisplayAlert("Error", "Faltan campos por rellenar.", "OK");
@@ -121,8 +110,8 @@ namespace Referidos.ViewModels
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
 
-                string query = "INSERT INTO bs_refe (bs_nombre, bs_cedula, bs_correo, bs_telefono, bs_ciudad, bs_empresa, bs_fingreso, bs_estado, bs_mac, bs_cargo) " +
-               "VALUES (@NombreCompleto, @Cedula, @Correo, @Telefono, @Ciudad, @Empresa, @FechaIngreso, @Estado, @Mac, @Cargo)";
+                string query = "INSERT INTO bs_refe (bs_nombre, bs_cedula, bs_correo, bs_telefono, bs_ciudad, bs_vend, bs_fingreso, bs_estado, bs_mac) " +
+               "VALUES (@NombreCompleto, @Cedula, @Correo, @Telefono, @Ciudad, @Asesor, @FechaIngreso, @Estado)";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@NombreCompleto", NombreCompleto);
@@ -130,13 +119,12 @@ namespace Referidos.ViewModels
                 cmd.Parameters.AddWithValue("@Correo", Correo);
                 cmd.Parameters.AddWithValue("@Telefono", Telefono);
                 cmd.Parameters.AddWithValue("@Ciudad", Ciudad);
-                cmd.Parameters.AddWithValue("@Empresa", Empresa);
+                cmd.Parameters.AddWithValue("@Asesor", Asesor);
                 // Agregar la fecha actual al parámetro @FechaIngreso
                 cmd.Parameters.AddWithValue("@FechaIngreso", DateTime.Now);
                 // Establecer el valor de bs_estado como 0
                 cmd.Parameters.AddWithValue("@Estado", 0);
                 cmd.Parameters.AddWithValue("@Mac", id);
-                cmd.Parameters.AddWithValue("@Cargo", Cargo);
                 cmd.ExecuteNonQuery();
 
                 // Mostrar la alerta de éxito si el registro fue exitoso
@@ -155,11 +143,20 @@ namespace Referidos.ViewModels
         {
             // Mostrar el mensaje de éxito utilizando DisplayAlert
             await Application.Current.MainPage.DisplayAlert("Registro Exitoso", "Pronto le enviaremos una clave de activación.", "OK");
-
+            LimpiarDatos();
             // Redireccionar a la página de inicio (HomePage)
             await Application.Current.MainPage.Navigation.PopToRootAsync();
         }
-
+        private void LimpiarDatos()
+        {
+            NombreCompleto = string.Empty;
+            Telefono = string.Empty;
+            Cedula = string.Empty;
+            Correo = string.Empty;
+            Asesor = string.Empty;
+            Ciudad = string.Empty;
+            // Y cualquier otro campo que desees restablecer
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
