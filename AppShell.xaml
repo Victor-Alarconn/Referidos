@@ -15,7 +15,7 @@
                 </Grid.ColumnDefinitions>
                 <Image Source="{Binding Icon}" WidthRequest="40" HeightRequest="40"/>
                 <!-- Esto define el tamaño del icono -->
-                <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="Center" />
+                <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="Center" FontSize="16" />
             </Grid>
         </DataTemplate>
     </Shell.Resources>
@@ -24,6 +24,15 @@
     <Shell.ItemTemplate>
         <StaticResource Key="FlyoutItemTemplate" />
     </Shell.ItemTemplate>
+
+    <Shell.FlyoutHeader>
+        <StackLayout Padding="20" VerticalOptions="Center" HorizontalOptions="Center">
+            <Image Source="user1.png" WidthRequest="100" HeightRequest="100"/>
+            <Label Text="{Binding NombreUsuarioCache}" FontAttributes="Bold" FontSize="20" TextColor="Black" HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding AsesorCache, StringFormat='Equipo: {0}'}" FontAttributes="Bold" FontSize="15" TextColor="Black" HorizontalTextAlignment="Center"/>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
 
     <!-- Luego define tus FlyoutItems y otros elementos -->
     <FlyoutItem Title="Inicio" Icon="inicio.png">

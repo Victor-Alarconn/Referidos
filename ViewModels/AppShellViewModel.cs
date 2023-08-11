@@ -26,10 +26,25 @@ namespace Referidos.ViewModels
             }
         }
 
+        private string _asesorCache;
+        public string AsesorCache
+        {
+            get => _asesorCache;
+            set
+            {
+                if(_asesorCache != value)
+                {
+                    _asesorCache = value;
+                    OnPropertyChanged(nameof(AsesorCache));
+                }
+            }
+        }
+
         public AppShellViewModel()
         {
             SalirCommand = new Command(Salir);
             NombreUsuarioCache = Preferences.Get("NombreUsuarioCache", string.Empty);
+            AsesorCache = Preferences.Get("AsesorCache", string.Empty);
         }
 
         private void Salir()

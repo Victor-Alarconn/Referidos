@@ -91,7 +91,6 @@ namespace Referidos.ViewModels
 
         private async void Enviar()
         {
-
             string id = CrossDeviceInfo.Current.Id;
 
             // Validar que los campos requeridos no estén vacíos
@@ -101,14 +100,26 @@ namespace Referidos.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", "Faltan campos por rellenar.", "OK");
                 return; // Salir del método si hay campos requeridos vacíos
             }
-
-            // Guardar el nombre en la caché
-            Preferences.Set("NombreUsuarioCache", NombreCompleto);
-
             try
             {
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
+
+                // Verificar si ya hay un usuario con el mismo ID en la base de datos
+                string checkQuery = "SELECT COUNT(*) FROM bs_refe WHERE bs_mac = @Mac";
+                using MySqlCommand checkCmd = new MySqlCommand(checkQuery, connection);
+                checkCmd.Parameters.AddWithValue("@Mac", id);
+                var count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                if (count > 0)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Ya hay un Usuario registrado en este equipo.", "OK");
+                    return; // Salir del método si ya hay un usuario con el mismo ID
+                }
+
+                // Guardar el nombre en la caché
+                Preferences.Set("NombreUsuarioCache", NombreCompleto);
+                Preferences.Set("AsesorCache", Asesor);
 
                 string query = "INSERT INTO bs_refe (bs_nombre, bs_cedula, bs_correo, bs_telefono, bs_ciudad, bs_vend, bs_fingreso, bs_estado, bs_mac) " +
                "VALUES (@NombreCompleto, @Cedula, @Correo, @Telefono, @Ciudad, @Asesor, @FechaIngreso, @Estado)";
@@ -136,6 +147,7 @@ namespace Referidos.ViewModels
                 throw;
             }
         }
+
 
 
 

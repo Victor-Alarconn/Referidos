@@ -1,30 +1,53 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Referidos.Views.ProgresoPage"
-             Title="ProgresoPage">
+            xmlns:local="clr-namespace:Referidos.Converter"
+             Title="Progreso"
+             BackgroundColor="#242527">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter" />
+            <local:ZeroConverter x:Key="ZeroConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,10,0" Spacing="45">
             <StackLayout Orientation="Horizontal">
                 <BoxView Color="#FFB84C" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                <Label Text="En llamada" VerticalTextAlignment="Center" Margin="5,0,0,0"/>
+                <Label Text="En llamada" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="Wheat"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <BoxView Color="#F266AB" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                <Label Text="En reunion" VerticalTextAlignment="Center" Margin="5,0,0,0"/>
+                <Label Text="En reunion" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="#F266AB"/>
             </StackLayout>
         </StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10" Spacing="18">
             <StackLayout Orientation="Horizontal">
                 <BoxView Color="#A459D1" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                <Label Text="En Negociacion" VerticalTextAlignment="Center" Margin="5,0,0,0"/>
+                <Label Text="En Negociacion" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="#A459D1"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <BoxView Color="#2CD3E1" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                <Label Text="Completado" VerticalTextAlignment="Center" Margin="5,0,0,0"/>
+                <Label Text="Completado" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="#2CD3E1"/>
             </StackLayout>
         </StackLayout>
-        <ListView ItemsSource="{Binding Clientes}" RowHeight="118">
+        <Label Text="{Binding NumeroDeReferidos}" 
+           VerticalOptions="Center" 
+           HorizontalOptions="Center" 
+           FontSize="Large" 
+           FontAttributes="Bold" 
+           TextColor="White"
+           IsVisible="{Binding NumeroDeReferidos, Converter={StaticResource GreaterThanZeroConverter}}"/>
+
+        <Label Text="Aun no tienes referidos" 
+           VerticalOptions="Center" 
+           HorizontalOptions="Center" 
+           FontSize="Large" 
+           TextColor="White"
+           FontAttributes="Bold" 
+           IsVisible="{Binding NumeroDeReferidos, Converter={StaticResource ZeroConverter}}"/>
+        <ListView ItemsSource="{Binding Clientes}" RowHeight="125">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
@@ -39,47 +62,46 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <StackLayout Grid.Column="0" Margin="10,5">
-                                <Label Text="{Binding Bs_Nombre}" Style="{StaticResource labelInfo}" FontSize="17" FontAttributes="Bold"/>
-                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                    <Image Source="telefono.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
-                                    <Label Text="{Binding Bs_Telefono1}" Style="{StaticResource labelInfo}" FontSize="14"/>
+                                    <Label Text="{Binding Bs_Nombre}" Style="{StaticResource labelInfo}" FontSize="16" FontAttributes="Bold"/>
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Image Source="correo.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
+                                        <Label Text="{Binding Bs_Email}" Style="{StaticResource labelInfo}" FontSize="14"/>
+                                    </StackLayout>
                                 </StackLayout>
-                            </StackLayout>
-                            <StackLayout Grid.Column="1" Margin="10,5">
-                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                    <Image Source="empresa1.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
-                                    <Label Text="{Binding Bs_Empresa}" Style="{StaticResource labelInfo}" FontSize="14"/>
+                                <StackLayout Grid.Column="1" Margin="10,5">
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Image Source="telefono.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
+                                        <Label Text="{Binding Bs_Telefono1}" Style="{StaticResource labelInfo}" FontSize="14"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Image Source="empresa1.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
+                                        <Label Text="{Binding Bs_Empresa}" Style="{StaticResource labelInfo}" FontSize="14"/>
+                                    </StackLayout>
                                 </StackLayout>
-                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                    <Image Source="correo.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
-                                    <Label Text="{Binding Bs_Email}" Style="{StaticResource labelInfo}" FontSize="14"/>
-                                </StackLayout>
-                            </StackLayout>
-                            <ProgressBar Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="10" Progress="{Binding ProgressValue}" VerticalOptions="End" Margin="10,0">
-                                <ProgressBar.Triggers>
-                                    <!-- Cambiar a color #FFB84C cuando el progreso es 0.25 -->
-                                    <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="0.25">
-                                        <Setter Property="ProgressColor" Value="#FFB84C"/>
-                                    </DataTrigger>
+                                <ProgressBar Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="10" Progress="{Binding ProgressValue}" VerticalOptions="End" Margin="10,0">
+                                    <ProgressBar.Triggers>
+                                        <!-- Cambiar a color #FFB84C cuando el progreso es 0.25 -->
+                                        <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="0.25">
+                                            <Setter Property="ProgressColor" Value="#FFB84C"/>
+                                        </DataTrigger>
 
-                                    <!-- Cambiar a color #F266AB cuando el progreso es 0.5 -->
-                                    <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="0.5">
-                                        <Setter Property="ProgressColor" Value="#F266AB"/>
-                                    </DataTrigger>
+                                        <!-- Cambiar a color #F266AB cuando el progreso es 0.5 -->
+                                        <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="0.5">
+                                            <Setter Property="ProgressColor" Value="#F266AB"/>
+                                        </DataTrigger>
 
-                                    <!-- Cambiar a color #A459D1 cuando el progreso es 0.75 -->
-                                    <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="0.75">
-                                        <Setter Property="ProgressColor" Value="#A459D1"/>
-                                    </DataTrigger>
+                                        <!-- Cambiar a color #A459D1 cuando el progreso es 0.75 -->
+                                        <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="0.75">
+                                            <Setter Property="ProgressColor" Value="#A459D1"/>
+                                        </DataTrigger>
 
-                                    <!-- Cambiar a color #2CD3E1 cuando el progreso es 1 -->
-                                    <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="1">
-                                        <Setter Property="ProgressColor" Value="#2CD3E1"/>
-                                    </DataTrigger>
-                                </ProgressBar.Triggers>
-                            </ProgressBar>
-
-                        </Grid>
+                                        <!-- Cambiar a color #2CD3E1 cuando el progreso es 1 -->
+                                        <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="1">
+                                            <Setter Property="ProgressColor" Value="#2CD3E1"/>
+                                        </DataTrigger>
+                                    </ProgressBar.Triggers>
+                                </ProgressBar>
+                            </Grid>
                     </Frame>
                 </ViewCell>
             </DataTemplate>

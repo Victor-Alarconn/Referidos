@@ -17,10 +17,12 @@ namespace Referidos.ViewModels
     public class RefierePageViewModel : INotifyPropertyChanged
     {
         public ICommand EnviarRefeCommand { get; private set; }
+        public ICommand CancelarCommand { get; private set; }
 
         public RefierePageViewModel()
         {
             EnviarRefeCommand = new Command(EnviarRefe);
+            CancelarCommand = new Command(async () => await Cancelar());
         }
 
         private List<string> _tiposReferencia = new List<string>
@@ -112,6 +114,11 @@ namespace Referidos.ViewModels
             }
         }
 
+        private async Task Cancelar()
+        {
+            await Shell.Current.GoToAsync("//PrincipalPage");
+        }
+
         private async void EnviarRefe()
         {
             
@@ -162,10 +169,10 @@ namespace Referidos.ViewModels
         private async Task MostrarAlertaExito()
         {
             // Mostrar el mensaje de éxito utilizando DisplayAlert
-            await Application.Current.MainPage.DisplayAlert("Registro Exitoso", "El cliente fue guardado con éxito.", "OK");
+            await Application.Current.MainPage.DisplayAlert("Registro Exitoso", "El cliente fue guardado con exito.", "OK");
             LimpiarDatos(); // Limpia los datos del formulario
             // Redireccionar a la página PrincipalPage
-            await Application.Current.MainPage.Navigation.PushAsync(new PrincipalPage());
+            await Shell.Current.GoToAsync("//PrincipalPage");
         }
 
         private void LimpiarDatos()

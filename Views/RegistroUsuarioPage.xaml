@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Referidos.Views.RegistroUsuarioPage"
-             Title="RegistroUsuarioPage">
+             Title="Registro de Usuario"
+             BackgroundColor="#242527">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -11,35 +12,35 @@
 
         <ScrollView Grid.Row="1">
             <StackLayout Spacing="20" Padding="20">
-                <Label Text="Registro de Usuario" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" />
+                <Label Text="Registro de Usuario" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" TextColor="White" />
 
-                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
                     <Entry Placeholder="Nombre completo" Text="{Binding NombreCompleto}" />
                 </Frame>
 
-                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
                     <Entry Placeholder="Cédula" Keyboard="Numeric" Text="{Binding Cedula}" />
                 </Frame>
 
-                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
                     <Entry Placeholder="Correo" Text="{Binding Correo}" />
                 </Frame>
 
-                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
                     <Entry Placeholder="Teléfono" Keyboard="Numeric" Text="{Binding Telefono}" />
                 </Frame>
 
-                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
                     <Entry Placeholder="Ciudad" Text="{Binding Ciudad}" />
                 </Frame>
 
-                <Frame BorderColor="#7474db" CornerRadius="12" Padding="5">
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
                     <Entry Placeholder="Codigo del Asesor" Text="{Binding Asesor}" />
                 </Frame>
 
-                <Button Text="Registrar" Command="{Binding EnviarCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#7474db" TextColor="White" FontAttributes="Bold" CornerRadius="10" />
+                <Button Text="Registrar" Command="{Binding EnviarCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#512BD4" TextColor="White" FontAttributes="Bold" CornerRadius="10" />
 
-                <Label Text="* Campos opcionales" FontSize="Micro" TextColor="Gray" HorizontalOptions="Center" />
+                <Label Text="* Campos opcionales" FontSize="Micro" TextColor="White" HorizontalOptions="Center" />
             </StackLayout>
         </ScrollView>
     </Grid>

@@ -5,15 +5,18 @@ using Referidos.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Referidos.ViewModels
 {
-    public class ProgresoPageViewModel
+    public class ProgresoPageViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Clientes> Clientes { get; set; }
+        public int NumeroDeReferidos => Clientes.Count;
 
 
         public ProgresoPageViewModel()
@@ -45,6 +48,7 @@ namespace Referidos.ViewModels
                     int estado = reader.IsDBNull(reader.GetOrdinal("bs_Estado")) ? 0 : reader.GetInt32(reader.GetOrdinal("bs_Estado"));
 
                     Clientes.Add(new Clientes { Bs_Nombre = nombre, Bs_Email = email, Bs_Telefono1 = telefono, Bs_Empresa = empresa, Bs_Estado = estado });
+                    OnPropertyChanged(nameof(NumeroDeReferidos));
                 }
             }
             catch (Exception ex)
@@ -55,8 +59,13 @@ namespace Referidos.ViewModels
         }
 
 
+       
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
     }
 }
