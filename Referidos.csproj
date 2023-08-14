@@ -52,17 +52,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\AppIcon\appicon.svg" />
 	  <None Remove="Resources\Images\correo.png" />
 	  <None Remove="Resources\Images\empresa.png" />
 	  <None Remove="Resources\Images\empresa1.png" />
 	  <None Remove="Resources\Images\imgrPrincipal.png" />
 	  <None Remove="Resources\Images\inicio.png" />
+	  <None Remove="Resources\Images\inicio1.png" />
 	  <None Remove="Resources\Images\llaveslogo.png" />
 	  <None Remove="Resources\Images\logoinicial.png" />
 	  <None Remove="Resources\Images\progreso.png" />
+	  <None Remove="Resources\Images\progreso1.png" />
 	  <None Remove="Resources\Images\refiere.png" />
+	  <None Remove="Resources\Images\refiere1.png" />
 	  <None Remove="Resources\Images\telefono.png" />
 	  <None Remove="Resources\Images\user1.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiIcon Include="Resources\AppIcon\appicon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

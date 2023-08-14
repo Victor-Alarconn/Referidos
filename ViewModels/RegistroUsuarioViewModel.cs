@@ -34,25 +34,14 @@ namespace Referidos.ViewModels
             }
         }
 
-        private string _cedula;
-        public string Cedula
+        private string _cargo;
+        public string Cargo
         {
-            get => _cedula;
+            get => _cargo;
             set
             {
-                _cedula = value;
-                OnPropertyChanged(nameof(Cedula));
-            }
-        }
-
-        private string _correo;
-        public string Correo
-        {
-            get => _correo;
-            set
-            {
-                _correo = value;
-                OnPropertyChanged(nameof(Correo));
+                _cargo = value;
+                OnPropertyChanged(nameof(Cargo));
             }
         }
 
@@ -64,6 +53,17 @@ namespace Referidos.ViewModels
             {
                 _telefono = value;
                 OnPropertyChanged(nameof(Telefono));
+            }
+        }
+
+        private string _correo;
+        public string Correo
+        {
+            get => _correo;
+            set
+            {
+                _correo = value;
+                OnPropertyChanged(nameof(Correo));
             }
         }
 
@@ -94,11 +94,35 @@ namespace Referidos.ViewModels
             string id = CrossDeviceInfo.Current.Id;
 
             // Validar que los campos requeridos no estén vacíos
-            if (string.IsNullOrEmpty(NombreCompleto) || string.IsNullOrEmpty(Correo) || !int.TryParse(Cedula, out int cedula) || cedula == 0 || !int.TryParse(Telefono, out int numeroTelefono) || numeroTelefono == 0 || string.IsNullOrEmpty(Ciudad))
+            if (string.IsNullOrEmpty(Cargo))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "El Cargo esta vacio.", "OK");
+                return;
+            }
+            Console.WriteLine($"Valor de Telefono antes de convertir: {Telefono}");
+            if (!int.TryParse(Telefono, out int telefono) || telefono == 0)
             {
                 // Mostrar el mensaje de error utilizando DisplayAlert
-                await Application.Current.MainPage.DisplayAlert("Error", "Faltan campos por rellenar.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Faltan celular por rellenar.", "OK");
                 return; // Salir del método si hay campos requeridos vacíos
+            }
+
+            if (string.IsNullOrEmpty(NombreCompleto))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "El nombre esta vacio.", "OK");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Ciudad))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "La Ciudad esta vacía.", "OK");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Correo))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "El correo está vacio.", "OK");
+                return;
             }
             try
             {
@@ -121,12 +145,12 @@ namespace Referidos.ViewModels
                 Preferences.Set("NombreUsuarioCache", NombreCompleto);
                 Preferences.Set("AsesorCache", Asesor);
 
-                string query = "INSERT INTO bs_refe (bs_nombre, bs_cedula, bs_correo, bs_telefono, bs_ciudad, bs_vend, bs_fingreso, bs_estado, bs_mac) " +
-               "VALUES (@NombreCompleto, @Cedula, @Correo, @Telefono, @Ciudad, @Asesor, @FechaIngreso, @Estado)";
+                string query = "INSERT INTO bs_refe (bs_nombre, bs_cargo, bs_correo, bs_telefono, bs_ciudad, bs_vend, bs_fingreso, bs_estado, bs_mac) " +
+               "VALUES (@NombreCompleto, @Cargo, @Correo, @Telefono, @Ciudad, @Asesor, @FechaIngreso, @Estado, @Mac)";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@NombreCompleto", NombreCompleto);
-                cmd.Parameters.AddWithValue("@Cedula", Cedula);
+                cmd.Parameters.AddWithValue("@Cargo", Cargo);
                 cmd.Parameters.AddWithValue("@Correo", Correo);
                 cmd.Parameters.AddWithValue("@Telefono", Telefono);
                 cmd.Parameters.AddWithValue("@Ciudad", Ciudad);
@@ -163,7 +187,7 @@ namespace Referidos.ViewModels
         {
             NombreCompleto = string.Empty;
             Telefono = string.Empty;
-            Cedula = string.Empty;
+            Cargo = string.Empty;
             Correo = string.Empty;
             Asesor = string.Empty;
             Ciudad = string.Empty;

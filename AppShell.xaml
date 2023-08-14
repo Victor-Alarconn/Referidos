@@ -4,7 +4,11 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:Referidos"
        x:Class="Referidos.AppShell"
-       Shell.FlyoutBehavior="Flyout">
+       Shell.FlyoutBehavior="Flyout"
+       Shell.FlyoutBackgroundColor="#242527"
+
+       
+>
     <Shell.Resources>
         <DataTemplate x:Key="FlyoutItemTemplate">
             <Grid>
@@ -13,9 +17,9 @@
                     <!-- Esto define el ancho del icono -->
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Image Source="{Binding Icon}" WidthRequest="40" HeightRequest="40"/>
+                <Image Source="{Binding Icon}" WidthRequest="50" HeightRequest="50"/>
                 <!-- Esto define el tamaño del icono -->
-                <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="Center" FontSize="16" />
+                <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="Center" FontSize="16" TextColor="White"/>
             </Grid>
         </DataTemplate>
     </Shell.Resources>
@@ -28,14 +32,14 @@
     <Shell.FlyoutHeader>
         <StackLayout Padding="20" VerticalOptions="Center" HorizontalOptions="Center">
             <Image Source="user1.png" WidthRequest="100" HeightRequest="100"/>
-            <Label Text="{Binding NombreUsuarioCache}" FontAttributes="Bold" FontSize="20" TextColor="Black" HorizontalTextAlignment="Center"/>
-            <Label Text="{Binding AsesorCache, StringFormat='Equipo: {0}'}" FontAttributes="Bold" FontSize="15" TextColor="Black" HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding NombreUsuarioCache}" FontAttributes="Bold" FontSize="20" TextColor="White" HorizontalTextAlignment="Center" />
+            <Label Text="{Binding AsesorCache, StringFormat='Equipo: {0}'}" FontAttributes="Bold" FontSize="15" TextColor="White" HorizontalTextAlignment="Center" />
         </StackLayout>
     </Shell.FlyoutHeader>
 
 
     <!-- Luego define tus FlyoutItems y otros elementos -->
-    <FlyoutItem Title="Inicio" Icon="inicio.png">
+    <FlyoutItem Title="Inicio" Icon="inicio.png" >
         <ShellContent Route="PrincipalPage" ContentTemplate="{DataTemplate local:Views.PrincipalPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Refiere" Icon="refiere.png">
@@ -47,7 +51,7 @@
 
     <Shell.FlyoutFooter>
         <StackLayout Padding="20">
-            <Button Text="Salir" Command="{Binding SalirCommand}" BackgroundColor="SkyBlue"/>
+            <Button Text="Salir" Command="{Binding SalirCommand}" BackgroundColor="#512BD4"/>
         </StackLayout>
     </Shell.FlyoutFooter>
     

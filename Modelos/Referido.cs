@@ -12,7 +12,7 @@ namespace Referidos.Modelos
         public string Bs_nombre { get; set; }
         public string Bs_cedula { get; set; }
         public string Bs_correo { get; set; }
-        public int Bs_telefono { get; set; }
+        public string Bs_telefono { get; set; }
         public string Bs_ciudad { get; set; }
         public string Bs_empresa { get; set; }
         public string Bs_mac { get; set; }
