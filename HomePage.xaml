@@ -37,7 +37,7 @@
                         <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
                             <Image Source="llaveslogo.png" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding Clave}" Placeholder="Clave de Activacion" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry Text="{Binding Clave}" Placeholder="Clave de Activacion" TextColor="White" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
                     </StackLayout>
                 </Frame>
                 <Button Text="Enviar Clave" BackgroundColor="#7474db" Margin="0,15,0,0" CornerRadius="30" TextColor="White" FontAttributes="Bold" Command="{Binding EnvioClaveCommand}"/>

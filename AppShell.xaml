@@ -5,10 +5,7 @@
        xmlns:local="clr-namespace:Referidos"
        x:Class="Referidos.AppShell"
        Shell.FlyoutBehavior="Flyout"
-       Shell.FlyoutBackgroundColor="#242527"
-
-       
->
+       Shell.FlyoutBackgroundColor="#242527">
     <Shell.Resources>
         <DataTemplate x:Key="FlyoutItemTemplate">
             <Grid>

@@ -124,9 +124,10 @@ namespace Referidos.ViewModels
             
             string id = CrossDeviceInfo.Current.Id;
             string NombreUsuario = Preferences.Get("NombreUsuarioCache", string.Empty);
+            string Asesor = Preferences.Get("AsesorCache", string.Empty);
 
             // Validar que los campos requeridos no estén vacíos
-            if (string.IsNullOrEmpty(NombreCompletoRefe) || !int.TryParse(TelefonoRefe, out int numeroTelefono) || numeroTelefono == 0)
+            if (string.IsNullOrEmpty(NombreCompletoRefe) || string.IsNullOrEmpty(TelefonoRefe))
             {
                 // Mostrar el mensaje de error utilizando DisplayAlert
                 await Application.Current.MainPage.DisplayAlert("Error", "Faltan campos por rellenar.", "OK");
@@ -138,8 +139,8 @@ namespace Referidos.ViewModels
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
 
-                string query = "INSERT INTO bs_main (bs_Nombre, bs_Email, bs_Telefono1, bs_Empresa, bs_Tipo, bs_Fecha, bs_estado, bs_Equipo, bs_Notas, bs_Refiere) " +
-               "VALUES (@NombreCompleto, @Correo, @Telefono, @Empresa, @Tipo, @FechaIngreso, @Estado, @Mac, @Notas, @Refiere)";
+                string query = "INSERT INTO bs_main (bs_Nombre, bs_Email, bs_Telefono1, bs_Empresa, bs_Tipo, bs_Fecha, bs_estado, bs_Equipo, bs_Notas, bs_Refiere, bs_vend) " +
+               "VALUES (@NombreCompleto, @Correo, @Telefono, @Empresa, @Tipo, @FechaIngreso, @Estado, @Mac, @Notas, @Refiere, @Asesor)";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@NombreCompleto", NombreCompletoRefe);
@@ -154,6 +155,7 @@ namespace Referidos.ViewModels
                 cmd.Parameters.AddWithValue("@Mac", id);
                 cmd.Parameters.AddWithValue("@Notas", NotasRefe);
                 cmd.Parameters.AddWithValue("@Refiere", NombreUsuario);
+                cmd.Parameters.AddWithValue("@Asesor", Asesor);
                 cmd.ExecuteNonQuery();
 
                 // Mostrar la alerta de éxito si el registro fue exitoso

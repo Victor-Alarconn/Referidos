@@ -99,8 +99,8 @@ namespace Referidos.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", "El Cargo esta vacio.", "OK");
                 return;
             }
-            Console.WriteLine($"Valor de Telefono antes de convertir: {Telefono}");
-            if (!int.TryParse(Telefono, out int telefono) || telefono == 0)
+          
+            if (string.IsNullOrEmpty(Telefono))
             {
                 // Mostrar el mensaje de error utilizando DisplayAlert
                 await Application.Current.MainPage.DisplayAlert("Error", "Faltan celular por rellenar.", "OK");

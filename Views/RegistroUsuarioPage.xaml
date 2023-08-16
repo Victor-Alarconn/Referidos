@@ -19,7 +19,7 @@
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Cargo" FontAttributes="Bold" Keyboard="Numeric" PlaceholderColor="Black" Text="{Binding Cargo}" />
+                    <Entry Placeholder="Cargo" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Cargo}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
