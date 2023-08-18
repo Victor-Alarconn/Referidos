@@ -22,6 +22,9 @@ namespace Referidos
 
                 switch (estadoUsuario)
                 {
+                    case 0:
+                        MainPage = new NavigationPage(new HomePage());
+                        break;
                     case 1:
                         MainPage = new AppShell();
                         break;
