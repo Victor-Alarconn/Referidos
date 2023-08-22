@@ -1,0 +1,14 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Referidos.Views.TermsAndConditionsPage"
+             Title="Términos y Condiciones"
+             BackgroundColor="#242527">
+
+    <NavigationPage.TitleView>
+        <Button Text="Cerrar" Command="{Binding CloseCommand}" />
+    </NavigationPage.TitleView>
+
+    <ScrollView>
+        <!-- ... el resto de tu código ... -->
+    </ScrollView>
+</ContentPage>

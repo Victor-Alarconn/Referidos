@@ -10,6 +10,7 @@ using Referidos.Data;
 using Xamarin.Essentials;
 using Plugin.DeviceInfo;
 using Preferences = Microsoft.Maui.Storage.Preferences;
+using Referidos.Views;
 
 namespace Referidos.ViewModels
 {
@@ -21,6 +22,18 @@ namespace Referidos.ViewModels
         {
             EnviarCommand = new Command(Enviar);
         }
+
+        private bool _acceptTerms;
+        public bool AcceptTerms
+        {
+            get => _acceptTerms;
+            set
+            {
+                _acceptTerms = value;
+                OnPropertyChanged(nameof(AcceptTerms));
+            }
+        }
+
 
         // Propiedades para enlazar los campos del formulario con el ViewModel
         private string _nombreCompleto;
@@ -92,6 +105,12 @@ namespace Referidos.ViewModels
         private async void Enviar()
         {
             string id = CrossDeviceInfo.Current.Id;
+
+            if (!AcceptTerms)
+            {
+                // Mostrar un mensaje informando al usuario que debe aceptar los términos y condiciones.
+                return;
+            }
 
             // Validar que los campos requeridos no estén vacíos
             if (string.IsNullOrEmpty(Cargo))
@@ -171,6 +190,8 @@ namespace Referidos.ViewModels
                 throw;
             }
         }
+
+    
 
 
 

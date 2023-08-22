@@ -15,27 +15,27 @@
                 <Label Text="Registro de Cliente" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" TextColor="White"/>
 
                 <Frame BorderColor="#512BD4"  CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Nombre completo" FontAttributes="Bold" TextColor="Black" PlaceholderColor="Black" Text="{Binding NombreCompletoRefe}" />
+                    <Entry Placeholder="Nombre completo" FontAttributes="Bold" TextColor="Black" PlaceholderColor="Black" Text="{Binding NombreCompletoRefe}" Style="{StaticResource AdaptiveTextStyle}"/>
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Telefono" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding TelefonoRefe}" />
+                    <Entry Placeholder="Telefono" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding TelefonoRefe}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Correo (opcional)" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding CorreoRefe}" />
+                    <Entry Placeholder="Correo (opcional)" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding CorreoRefe}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Picker Title="Seleccionar tipo" ItemsSource="{Binding TiposReferencia}"  SelectedItem="{Binding TipoRefe}" />
+                    <Picker Title="Seleccionar tipo" ItemsSource="{Binding TiposReferencia}"  SelectedItem="{Binding TipoRefe}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Nombre de la empresa" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding EmpresaRefe}" />
+                    <Entry Placeholder="Nombre de la empresa" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding EmpresaRefe}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Notas (opcional)" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding NotasRefe}" />
+                    <Entry Placeholder="Notas (opcional)" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding NotasRefe}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
                 <Button Text="Registrar Cliente" Command="{Binding EnviarRefeCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#512BD4" TextColor="White" FontAttributes="Bold" CornerRadius="10" />

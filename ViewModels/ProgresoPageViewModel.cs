@@ -41,10 +41,10 @@ namespace Referidos.ViewModels
                 using MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    string nombre = reader.IsDBNull(reader.GetOrdinal("bs_Nombre")) ? "No aplica" : reader.GetString("bs_Nombre");
-                    string telefono = reader.IsDBNull(reader.GetOrdinal("bs_Telefono1")) ? "No aplica" : reader.GetString("bs_Telefono1");
-                    string empresa = reader.IsDBNull(reader.GetOrdinal("bs_Empresa")) ? "No aplica" : reader.GetString("bs_Empresa");
-                    string email = reader.IsDBNull(reader.GetOrdinal("bs_email")) ? "No aplica" : reader.GetString("bs_email");
+                    string nombre = GetOrDefault(reader, "bs_Nombre");
+                    string telefono = GetOrDefault(reader, "bs_Telefono1");
+                    string empresa = GetOrDefault(reader, "bs_Empresa");
+                    string email = GetOrDefault(reader, "bs_email");
                     int estado = reader.IsDBNull(reader.GetOrdinal("bs_Estado")) ? 0 : reader.GetInt32(reader.GetOrdinal("bs_Estado"));
 
                     Clientes.Add(new Clientes { Bs_Nombre = nombre, Bs_Email = email, Bs_Telefono1 = telefono, Bs_Empresa = empresa, Bs_Estado = estado });
@@ -58,8 +58,18 @@ namespace Referidos.ViewModels
             }
         }
 
+        private string GetOrDefault(MySqlDataReader reader, string columnName)
+        {
+            if (!reader.IsDBNull(reader.GetOrdinal(columnName)))
+            {
+                return reader.GetString(reader.GetOrdinal(columnName));
+            }
+            return "No aplica";
+        }
 
-       
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

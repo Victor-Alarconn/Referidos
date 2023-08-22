@@ -5,7 +5,8 @@
        xmlns:local="clr-namespace:Referidos"
        x:Class="Referidos.AppShell"
        Shell.FlyoutBehavior="Flyout"
-       Shell.FlyoutBackgroundColor="#242527">
+       Shell.FlyoutBackgroundColor="#242527"
+       BackgroundColor="#512BD4">
     <Shell.Resources>
         <DataTemplate x:Key="FlyoutItemTemplate">
             <Grid>
@@ -48,7 +49,7 @@
 
     <Shell.FlyoutFooter>
         <StackLayout Padding="20">
-            <Button Text="Salir" Command="{Binding SalirCommand}" BackgroundColor="#512BD4"/>
+            <Button Text="Salir" Command="{Binding SalirCommand}" BackgroundColor="#512BD4" TextColor="White"/>
         </StackLayout>
     </Shell.FlyoutFooter>
     

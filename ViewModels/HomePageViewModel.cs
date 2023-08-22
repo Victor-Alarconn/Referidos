@@ -51,7 +51,7 @@ namespace Referidos.ViewsModels
             try
             {
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
-                connection.Open();
+                connection.Open();  
 
                 string query = "SELECT bs_clave FROM bs_refe WHERE bs_mac = @Mac";
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -67,7 +67,7 @@ namespace Referidos.ViewsModels
                         // Guardar la clave en la caché
                         Preferences.Set("ClaveCache", Clave);
 
-                        await Shell.Current.GoToAsync("//PrincipalPage");
+                        await Shell.Current.GoToAsync("//RefierePage");
                     }
                     else
                     {

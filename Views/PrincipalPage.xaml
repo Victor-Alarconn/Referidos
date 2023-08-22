@@ -14,9 +14,18 @@
 
         <!-- Contenido principal -->
         <StackLayout Grid.Row="0" Spacing="20" Padding="20">
-            <Label Text="PLAN REFERIDOS" FontSize="24" HorizontalOptions="CenterAndExpand" TextColor="#80FFDB"/>
-            <Label Text="Obten dinero extra por cada cliente que nos refieras, y se haga efectivo" FontSize="16" HorizontalOptions="CenterAndExpand" TextColor="White" />
-            <Image Source="imgrprincipal.png" Aspect="AspectFit" HeightRequest="200" HorizontalOptions="Center" />
+            <Label Text="PLAN REFERIDOS" FontSize="26" HorizontalOptions="CenterAndExpand" TextColor="#80FFDB" Margin="0,20"/>
+            <Label Text="Obten dinero extra por cada cliente que nos refieras, y se haga efectivo" FontSize="16" HorizontalOptions="CenterAndExpand" TextColor="White" LineBreakMode="WordWrap" Margin="15,0,0,10"  />
+            <CarouselView ItemsSource="{Binding ImagePaths}" 
+                          Position="{Binding CurrentPosition}"
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="FillAndExpand">          
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" Aspect="AspectFit" />
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
 
             <!-- Nueva imagen -->
             <Image Source="beneficios.png" Aspect="AspectFit" HeightRequest="300" HorizontalOptions="Center" />

@@ -15,32 +15,52 @@
                 <Label Text="Registro de Usuario" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" TextColor="White" />
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Nombre completo"  FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding NombreCompleto}" />
+                    <Entry Placeholder="Nombre completo"  FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding NombreCompleto}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Cargo" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Cargo}" />
+                    <Entry Placeholder="Cargo" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Cargo}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Correo" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Correo}" />
+                    <Entry Placeholder="Correo" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Correo}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Telefono" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Telefono}" />
+                    <Entry Placeholder="Telefono" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Telefono}" Style="{StaticResource AdaptiveTextStyle}"/>
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Ciudad" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Ciudad}" />
+                    <Entry Placeholder="Ciudad" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Ciudad}" Style="{StaticResource AdaptiveTextStyle}"/>
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Codigo del Asesor" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Asesor}" />
+                    <Entry Placeholder="Codigo del Asesor" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Asesor}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
-                <Button Text="Registrar" Command="{Binding EnviarCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#512BD4" TextColor="White" FontAttributes="Bold" CornerRadius="10" />
+                <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="CenterAndExpand">
+                    <CheckBox IsChecked="{Binding AcceptTerms}" Color="#512BD4" />
+                    <Label Text="Acepto los ">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTermsTapped" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Acepto los " TextColor="White" />
+                                <Span Text="Términos y Condiciones" TextColor="White" TextDecorations="Underline" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
 
-                <Label Text="* Campos opcionales" FontSize="Micro" TextColor="White" HorizontalOptions="Center" />
+                <Button Text="Registrar" 
+                    Command="{Binding EnviarCommand}" 
+                    HorizontalOptions="FillAndExpand" 
+                    BackgroundColor="#512BD4" 
+                    TextColor="White" 
+                    FontAttributes="Bold" 
+                    CornerRadius="10" 
+                    IsEnabled="{Binding Source={x:Reference AcceptTerms}, Path=IsChecked}" />
             </StackLayout>
         </ScrollView>
     </Grid>
