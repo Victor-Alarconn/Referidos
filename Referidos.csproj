@@ -60,6 +60,7 @@
 	  <None Remove="MauiImage\imagen6.png" />
 	  <None Remove="Resources\AppIcon\appicon.svg" />
 	  <None Remove="Resources\Images\beneficios.png" />
+	  <None Remove="Resources\Images\cerrar.png" />
 	  <None Remove="Resources\Images\correo.png" />
 	  <None Remove="Resources\Images\empresa.png" />
 	  <None Remove="Resources\Images\empresa1.png" />

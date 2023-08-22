@@ -3,12 +3,46 @@
              x:Class="Referidos.Views.TermsAndConditionsPage"
              Title="Términos y Condiciones"
              BackgroundColor="#242527">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cerrar.png" Command="{Binding CloseCommand}" />
+    </ContentPage.ToolbarItems>
 
-    <NavigationPage.TitleView>
-        <Button Text="Cerrar" Command="{Binding CloseCommand}" />
-    </NavigationPage.TitleView>
 
     <ScrollView>
-        <!-- ... el resto de tu código ... -->
+        <StackLayout Spacing="10" Padding="20">
+            <!-- Encabezado 1 -->
+            <Label Text="1. Elegibilidad para participar:" FontAttributes="Bold" TextColor="White"/>
+            <!-- Contenido 1 -->
+            <Label Text="- Para ser elegible para participar en el programa de referidos y hacer efectivo el premio, el participante debe ser mayor de edad y residente legal en el país en el que se ofrece el programa." TextColor="White"/>
+
+            <!-- Encabezado 2 -->
+            <Label Text="2. Referidos válidos:" FontAttributes="Bold" TextColor="White"/>
+            <!-- Contenido 2.1 -->
+            <Label Text="- Para que un referido sea válido, el participante debe proporcionar los datos de una persona que cumpla con los requisitos establecidos por la empresa como un potencial cliente para adquirir el software." TextColor="White"/>
+            <!-- Contenido 2.2 -->
+            <Label Text="- El referido debe ser una persona distinta del participante y no puede ser un cliente existente de la empresa." TextColor="White"/>
+            <!-- Contenido 2.3 -->
+            <Label Text="- El referido también debe dar su consentimiento explícito para ser contactado por la empresa." TextColor="White"/>
+            
+            
+            <Label Text="3. Proceso de referidos:" FontAttributes="Bold" TextColor="White"/>
+            <Label Text="- El participante puede enviar los referidos a través de un enlace de referencia proporcionado por la empresa o utilizando una opción específica en el programa de referidos en línea." TextColor="White"/>
+            <Label Text="- El referido debe proporcionar todos los datos requeridos de manera precisa y completa." TextColor="White"/>
+            <Label Text="- La empresa se reserva el derecho de validar la autenticidad y elegibilidad del referido antes de considerarlo válido." TextColor="White"/>
+
+            <Label Text="4. Reclamo y entrega del premio:" FontAttributes="Bold" TextColor="White"/>
+            <Label Text="- Para hacer efectivo el premio, el participante deberá cumplir con los requisitos establecidos por la empresa, como la firma de un acuerdo de aceptación del premio y proporcionar la información necesaria para proceder con la entrega." TextColor="White"/>
+            <Label Text="- El premio puede ser en forma de descuentos, bonificaciones, productos o servicios adicionales, según los términos y condiciones establecidos por la empresa." TextColor="White"/>
+
+            <Label Text="5. Restricciones y limitaciones:" FontAttributes="Bold" TextColor="White"/>
+            <Label Text="- La empresa se reserva el derecho de modificar o cancelar el programa de referidos en cualquier momento y a su entera discreción, sin previo aviso y sin ninguna responsabilidad hacia los participantes o referidos." TextColor="White"/>
+            <Label Text="- El participante no puede hacer referidos a sí mismo o utilizar cuentas duplicadas para obtener beneficios adicionales." TextColor="White"/>
+
+            <Label Text="6. Cumplimiento de las leyes:" FontAttributes="Bold" TextColor="White"/>
+            <Label Text="- El participante se compromete a cumplir con todas las leyes y regulaciones aplicables al participar en el programa de referidos." TextColor="White"/>
+
+        </StackLayout>
     </ScrollView>
 </ContentPage>
+

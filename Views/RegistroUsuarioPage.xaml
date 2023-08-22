@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Referidos.Views.RegistroUsuarioPage"
              Title="Registro de Usuario"
-             BackgroundColor="#242527">
+             BackgroundColor="#242527"
+             >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

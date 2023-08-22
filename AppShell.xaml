@@ -48,10 +48,24 @@
     </FlyoutItem>
 
     <Shell.FlyoutFooter>
-        <StackLayout Padding="20">
+        <StackLayout Padding="20" VerticalOptions="CenterAndExpand">
+            <!-- Texto de Términos y Condiciones -->
+            <Label 
+            Text="Términos y Condiciones" 
+            TextColor="White" 
+            TextDecorations="Underline" 
+            HorizontalOptions="CenterAndExpand" 
+            Margin="0,0,0,10">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTermsTapped" NumberOfTapsRequired="1" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- Botón de Salir -->
             <Button Text="Salir" Command="{Binding SalirCommand}" BackgroundColor="#512BD4" TextColor="White"/>
+        
         </StackLayout>
     </Shell.FlyoutFooter>
-    
+
 
 </Shell>
