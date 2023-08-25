@@ -1,17 +1,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Referidos.Views.ProgresoPage"
-            xmlns:local="clr-namespace:Referidos.Converter"
              Title="Progreso"
              BackgroundColor="#242527"
              >
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <!--<local:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter" />
-            <local:ZeroConverter x:Key="ZeroConverter" />-->
-        </ResourceDictionary>
-    </ContentPage.Resources>
-<ScrollView>
+    <ScrollView>
     <StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,10,0" Spacing="45">
             <StackLayout Orientation="Horizontal">
@@ -33,28 +26,33 @@
                 <Label Text="Completado" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="#2CD3E1"/>
             </StackLayout>
         </StackLayout>
-        <!--<Label Text="{Binding NumeroDeReferidos}" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" 
-           FontSize="Large" 
-           FontAttributes="Bold" 
-           TextColor="White"
-           Style="{StaticResource AdaptiveTextStyle}"    
-           IsVisible="{Binding NumeroDeReferidos, Converter={StaticResource GreaterThanZeroConverter}}"/>
-
-        <Label Text="Aun no tienes referidos" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" 
-           FontSize="Large" 
-           TextColor="White"
-           Style="{StaticResource AdaptiveTextStyle}"    
-           FontAttributes="Bold" 
-           IsVisible="{Binding NumeroDeReferidos, Converter={StaticResource ZeroConverter}}"/>-->
-        <CollectionView ItemsSource="{Binding Clientes}" SelectionMode="Single" SelectionChangedCommand="{Binding ItemSelectedCommand}">
-            <CollectionView.ItemTemplate>
+            <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
+                <CollectionView ItemsSource="{Binding Clientes}" SelectionMode="Single" SelectionChangedCommand="{Binding ItemSelectedCommand}">
+                    <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Margin="25,5" CornerRadius="24" HasShadow="True" BackgroundColor="#D5FFE4">
-                        <Grid RowSpacing="10">
+                            <Frame.Triggers>
+                                <!-- Cambiar el color de fondo a #FFB84C cuando el progreso es 0.25 -->
+                                <DataTrigger TargetType="Frame" Binding="{Binding ProgressValue}" Value="0.25">
+                                    <Setter Property="BackgroundColor" Value="#FFB84C"/>
+                                </DataTrigger>
+
+                                <!-- Cambiar el color de fondo a #F266AB cuando el progreso es 0.5 -->
+                                <DataTrigger TargetType="Frame" Binding="{Binding ProgressValue}" Value="0.5">
+                                    <Setter Property="BackgroundColor" Value="#F266AB"/>
+                                </DataTrigger>
+
+                                <!-- Cambiar el color de fondo a #A459D1 cuando el progreso es 0.75 -->
+                                <DataTrigger TargetType="Frame" Binding="{Binding ProgressValue}" Value="0.75">
+                                    <Setter Property="BackgroundColor" Value="#A459D1"/>
+                                </DataTrigger>
+
+                                <!-- Cambiar el color de fondo a #2CD3E1 cuando el progreso es 1 -->
+                                <DataTrigger TargetType="Frame" Binding="{Binding ProgressValue}" Value="1">
+                                    <Setter Property="BackgroundColor" Value="#2CD3E1"/>
+                                </DataTrigger>
+                            </Frame.Triggers>
+                            <Grid RowSpacing="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
@@ -70,44 +68,22 @@
                                         <Label Text="{Binding Bs_Email}" Style="{StaticResource AdaptiveTextStyle}" FontSize="14"/>
                                 </StackLayout>
                             </StackLayout>
-                            <StackLayout Grid.Column="1" Margin="10,5">
-                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                    <Image Source="telefono.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
+                             <StackLayout Grid.Column="1" Margin="10,5">
+                                  <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Image Source="telefono.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
                                         <Label Text="{Binding Bs_Telefono1}" Style="{StaticResource AdaptiveTextStyle}" FontSize="14"/>
-                                </StackLayout>
-                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                    <Image Source="empresa1.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
+                                  </StackLayout>
+                                  <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Image Source="empresa1.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
                                         <Label Text="{Binding Bs_Empresa}" Style="{StaticResource AdaptiveTextStyle}" FontSize="14"/>
-                                </StackLayout>
-                            </StackLayout>
-                            <ProgressBar Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="10" Progress="{Binding ProgressValue}" VerticalOptions="End" Margin="10,0">
-                                <!-- Cambiar a color #FFB84C cuando el progreso es 0.25 -->
-                                <ProgressBar.Triggers>
-                                    <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="0.25">
-                                        <Setter Property="ProgressColor" Value="#FFB84C"/>
-                                    </DataTrigger>
-
-                                    <!-- Cambiar a color #F266AB cuando el progreso es 0.5 -->
-                                    <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="0.5">
-                                        <Setter Property="ProgressColor" Value="#F266AB"/>
-                                    </DataTrigger>
-
-                                    <!-- Cambiar a color #A459D1 cuando el progreso es 0.75 -->
-                                    <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="0.75">
-                                        <Setter Property="ProgressColor" Value="#A459D1"/>
-                                    </DataTrigger>
-
-                                    <!-- Cambiar a color #2CD3E1 cuando el progreso es 1 -->
-                                    <DataTrigger TargetType="ProgressBar" Binding="{Binding ProgressValue}" Value="1">
-                                        <Setter Property="ProgressColor" Value="#2CD3E1"/>
-                                    </DataTrigger>
-                                </ProgressBar.Triggers>
-                            </ProgressBar>
+                                  </StackLayout>
+                             </StackLayout>
                         </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+      </RefreshView>
     </StackLayout>
    </ScrollView>
 </ContentPage>

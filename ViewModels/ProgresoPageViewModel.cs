@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Referidos.ViewModels
 {
@@ -18,17 +19,45 @@ namespace Referidos.ViewModels
         public ObservableCollection<Clientes> Clientes { get; set; }
         public int NumeroDeReferidos => Clientes.Count;
 
+        private bool isBusy;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set
+            {
+                isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+
+        public ICommand RefreshCommand { get; }
+
+
+
+
 
         public ProgresoPageViewModel()
         {
             Clientes = new ObservableCollection<Clientes>();
+            RefreshCommand = new Command(async () => await LoadData());
             // Aquí puedes agregar lógica para obtener los datos de la base de datos y llenar la lista de usuarios
             CargarUsuarios();
+        }
+
+        private async Task LoadData()
+        {
+            IsBusy = true;
+
+            CargarUsuarios();
+
+            IsBusy = false;
         }
         private void CargarUsuarios()
         {
             try
             {
+                // Limpia la colección antes de agregar nuevos registros.
+                Clientes.Clear();
                 string id = CrossDeviceInfo.Current.Id;
 
                 using MySqlConnection connection = DataConexion.ObtenerConexion();

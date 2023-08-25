@@ -16,7 +16,7 @@
                 <Label Text="Registro de Usuario" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" TextColor="White" />
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Entry Placeholder="Nombre completo"  FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding NombreCompleto}" Style="{StaticResource AdaptiveTextStyle}" />
+                    <Entry Placeholder="Nombre y Apellido"  FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding NombreCompleto}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
@@ -40,8 +40,11 @@
                 </Frame>
 
                 <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="CenterAndExpand">
-                    <CheckBox IsChecked="{Binding AcceptTerms}" Color="#512BD4" />
-                    <Label Text="Acepto los ">
+                    <CheckBox 
+                    IsChecked="{Binding AcceptTerms}" 
+                    Color="#512BD4" 
+                    VerticalOptions="Center" />     
+                    <Label VerticalOptions="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnTermsTapped" NumberOfTapsRequired="1" />
                         </Label.GestureRecognizers>
@@ -54,6 +57,7 @@
                     </Label>
                 </StackLayout>
 
+
                 <Button Text="Registrar" 
                     Command="{Binding EnviarCommand}" 
                     HorizontalOptions="FillAndExpand" 
@@ -61,7 +65,7 @@
                     TextColor="White" 
                     FontAttributes="Bold" 
                     CornerRadius="10" 
-                    IsEnabled="{Binding Source={x:Reference AcceptTerms}, Path=IsChecked}" />
+                     />
             </StackLayout>
         </ScrollView>
     </Grid>

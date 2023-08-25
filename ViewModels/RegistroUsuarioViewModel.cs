@@ -106,9 +106,9 @@ namespace Referidos.ViewModels
         {
             string id = CrossDeviceInfo.Current.Id;
 
-            if (!AcceptTerms)
+            if (string.IsNullOrEmpty(NombreCompleto))
             {
-                // Mostrar un mensaje informando al usuario que debe aceptar los términos y condiciones.
+                await Application.Current.MainPage.DisplayAlert("Error", "El nombre y el apellido esta vacio.", "OK");
                 return;
             }
 
@@ -118,18 +118,18 @@ namespace Referidos.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", "El Cargo esta vacio.", "OK");
                 return;
             }
-          
+
+            if (string.IsNullOrEmpty(Correo))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "El correo está vacio.", "OK");
+                return;
+            }
+
             if (string.IsNullOrEmpty(Telefono))
             {
                 // Mostrar el mensaje de error utilizando DisplayAlert
                 await Application.Current.MainPage.DisplayAlert("Error", "Faltan celular por rellenar.", "OK");
                 return; // Salir del método si hay campos requeridos vacíos
-            }
-
-            if (string.IsNullOrEmpty(NombreCompleto))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "El nombre esta vacio.", "OK");
-                return;
             }
 
             if (string.IsNullOrEmpty(Ciudad))
@@ -138,9 +138,9 @@ namespace Referidos.ViewModels
                 return;
             }
 
-            if (string.IsNullOrEmpty(Correo))
+            if (!AcceptTerms)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "El correo está vacio.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Acepta los Terminos y Condiciones para continuar.", "OK");
                 return;
             }
             try

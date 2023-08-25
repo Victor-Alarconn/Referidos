@@ -27,7 +27,7 @@
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Picker Title="Seleccionar tipo" ItemsSource="{Binding TiposReferencia}"  SelectedItem="{Binding TipoRefe}" Style="{StaticResource AdaptiveTextStyle}" />
+                    <Picker Title="Seleccionar tipo" ItemsSource="{Binding TiposReferencia}"  SelectedItem="{Binding TipoRefe}" Style="{StaticResource AdaptivePickerStyle}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
@@ -40,7 +40,6 @@
 
                 <Button Text="Registrar Cliente" Command="{Binding EnviarRefeCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#512BD4" TextColor="White" FontAttributes="Bold" CornerRadius="10" />
                 <Button Text="Cancelar" Command="{Binding CancelarCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#512BD4" TextColor="White" FontAttributes="Bold" CornerRadius="10" />
-                <Label Text="* Campos opcionales" FontSize="Micro" TextColor="White" HorizontalOptions="Center" />
             </StackLayout>
         </ScrollView>
     </Grid>

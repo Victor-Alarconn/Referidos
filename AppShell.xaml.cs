@@ -17,5 +17,5 @@ public partial class AppShell : Shell
         await Navigation.PushModalAsync(new NavigationPage(new TermsAndConditionsPage()));
     }
 
-
+   
 }

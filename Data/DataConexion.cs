@@ -11,7 +11,7 @@ namespace Referidos.Data
     {
         public static MySqlConnection ObtenerConexion()
         {
-            string connectionString = "Server=192.168.1.184;User ID=victor;Password=123456;Database=clix;SslMode=None";
+            string connectionString = "Server=192.168.1.150;User ID=root;Password=**Rm20So23fT**;Database=clix;SslMode=None";
             MySqlConnection connection = new MySqlConnection(connectionString);
             return connection;
         }

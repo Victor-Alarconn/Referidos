@@ -46,6 +46,7 @@ namespace Referidos.ViewModels
             get => _tiposReferencia;
         }
 
+        
 
         // Propiedades para enlazar los campos del formulario con el ViewModel
         private string _nombreCompletoR;
