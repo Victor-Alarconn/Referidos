@@ -53,6 +53,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon\appicon.svg" />
+	  <None Remove="Resources\Images\aceptar.png" />
 	  <None Remove="Resources\Images\beneficios.png" />
 	  <None Remove="Resources\Images\cerrar.png" />
 	  <None Remove="Resources\Images\correo.png" />
@@ -83,6 +84,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AceptarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PrincipalPage.xaml">

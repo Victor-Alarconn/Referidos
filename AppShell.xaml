@@ -46,6 +46,9 @@
     <FlyoutItem Title="Progreso" Icon="progreso.png">
         <ShellContent Route="Progreso" ContentTemplate="{DataTemplate local:Views.ProgresoPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Aceptacion" Icon="aceptar.png">
+        <ShellContent Route="Aceptar" ContentTemplate="{DataTemplate local:Views.AceptarPage}" />
+    </FlyoutItem>
 
     <Shell.FlyoutFooter>
         <StackLayout Padding="20" VerticalOptions="CenterAndExpand">
