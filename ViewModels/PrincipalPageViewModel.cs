@@ -14,18 +14,40 @@ namespace Referidos.ViewModels
 {
     public class PrincipalPageViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<string> ImagePaths { get; set; }
+        public class ImageInfo
+        {
+            public string ImagePath { get; set; }
+            public string Link { get; set; }
+        }
+
+        public ObservableCollection<ImageInfo> ImagePaths { get; set; }
+
+        private string _imagen;
+        public string Imagen
+        {
+            get => _imagen;
+            set
+            {
+                _imagen = value;
+                OnPropertyChanged(nameof(Imagen));
+            }
+        }
+
         public ICommand RefiereCommand { get; private set; }
+        public ICommand OpenLinkCommand { get; private set; }
 
         public PrincipalPageViewModel()
         {
             RefiereCommand = new Command(async () => await Mover());
 
             // Inicializar la colección
-            ImagePaths = new ObservableCollection<string>();
+            ImagePaths = new ObservableCollection<ImageInfo>();
+            OpenLinkCommand = new Command(OpenLink);
+
 
             // Cargar las imágenes desde la base de datos
             CargarImagenesDesdeBD();
+            CargarImagenBD();
 
             System.Timers.Timer carouselTimer = new System.Timers.Timer();
             carouselTimer.Interval = 10000; // 10 segundos
@@ -36,22 +58,65 @@ namespace Referidos.ViewModels
             carouselTimer.Start();
         }
 
+        private async void OpenLink()
+        {
+            var selectedItem = ImagePaths[CurrentPosition];
+            if (selectedItem != null)
+            {
+                try
+                {
+                    bool result = await Launcher.OpenAsync(new Uri(selectedItem.Link));
+                    if (!result)
+                    {
+                        Console.WriteLine("No se pudo abrir la URL.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al abrir la URL: {ex.Message}");
+                }
+            }
+        }
+
+
         private async Task CargarImagenesDesdeBD()
         {
             using MySqlConnection connection = DataConexion.ObtenerConexion();
             connection.Open();
 
-            string query = "SELECT ruta_img FROM bs_imagenes";
+            string query = "SELECT ruta_img, bs_links FROM bs_imgs";
             using MySqlCommand cmd = new MySqlCommand(query, connection);
             using MySqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
                 string ruta = reader.GetString("ruta_img");
+                string link = reader.GetString("bs_links");
+
                 var rutaLocal = await DescargarImagenYGuardar(ruta);
-                ImagePaths.Add(rutaLocal);
+
+                ImagePaths.Add(new ImageInfo { ImagePath = rutaLocal, Link = link });
             }
         }
+
+
+        private async Task CargarImagenBD()
+        {
+            using MySqlConnection connection = DataConexion.ObtenerConexion();
+            connection.Open();
+
+            string query = "SELECT bs_url FROM bs_img LIMIT 1"; // Limitamos a una sola imagen
+            using MySqlCommand cmd = new MySqlCommand(query, connection);
+            using MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                string ruta = reader.GetString("bs_url");
+                Imagen = await DescargarImagenYGuardar(ruta);
+            }
+        }
+
+
 
         public async Task<string> DescargarImagenYGuardar(string imageUrl)
         {
@@ -69,9 +134,6 @@ namespace Referidos.ViewModels
                 return string.Empty;
             }
         }
-
-
-
 
         private int _currentPosition;
         public int CurrentPosition

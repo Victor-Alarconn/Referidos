@@ -5,11 +5,17 @@ namespace Referidos.Views;
 
 public partial class AceptarPage : ContentPage
 {
-	public AceptarPage()
-	{
-		InitializeComponent();
-		BindingContext = new AceptarPageViewModel();
-	}
+    public AceptarPage()
+    {
+        InitializeComponent();
+        BindingContext = new AceptarPageViewModel();
+
+        // Suscribirse al mensaje
+        MessagingCenter.Subscribe<AceptarPageViewModel, string>(this, "ClaveGenerada", async (sender, arg) =>
+        {
+            await DisplayAlert("Información", "Clave de Activación: " + arg, "OK");
+        });
+    }
 
     private void OnCardTapped(object sender, EventArgs e)
     {
@@ -18,4 +24,14 @@ public partial class AceptarPage : ContentPage
             referido.IsExpanded = !referido.IsExpanded;
         }
     }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        MessagingCenter.Unsubscribe<AceptarPageViewModel, string>(this, "ClaveGenerada");
+    }
+
+   
+
+
 }

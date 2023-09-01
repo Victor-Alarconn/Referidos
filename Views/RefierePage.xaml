@@ -27,7 +27,38 @@
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Picker Title="Seleccionar tipo" ItemsSource="{Binding TiposReferencia}"  SelectedItem="{Binding TipoRefe}" Style="{StaticResource AdaptivePickerStyle}" />
+                    <Entry Placeholder="Ciudad" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding CiudadRefe}" Style="{StaticResource AdaptiveTextStyle}" />
+                </Frame>
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Direccion (opcional)" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding DireccionRefe}" Style="{StaticResource AdaptiveTextStyle}" />
+                </Frame>
+
+                <!-- Tamaño de la empresa -->
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
+                    <StackLayout Orientation="Horizontal">
+                        <Picker Title="Tamaño de la Empresa" SelectedItem="{Binding TipoTamañoEmpresa}">
+                            <Picker.Items>
+                                <x:String>Empleados</x:String>
+                                <x:String>Sucursales</x:String>
+                            </Picker.Items>
+                        </Picker>
+                        <Entry Placeholder="Número" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding NumeroEmpleadosOSucursales}" Style="{StaticResource AdaptiveTextStyle}" WidthRequest="100" />
+                    </StackLayout>
+                </Frame>
+
+                <!-- Pertenece a la Empresa -->
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
+                    <Picker Title="Pertenece a la Empresa" SelectedItem="{Binding PerteneceAEmpresa}">
+                        <Picker.Items>
+                            <x:String>Sí</x:String>
+                            <x:String>No</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Frame>
+
+
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
+                    <Picker Title="Seleccionar tipo de Empresa " ItemsSource="{Binding TiposReferencia}"  SelectedItem="{Binding TipoRefe}" Style="{StaticResource AdaptivePickerStyle}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">

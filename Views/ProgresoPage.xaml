@@ -8,76 +8,69 @@
     <StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,10,0" Spacing="45">
             <StackLayout Orientation="Horizontal">
-                <BoxView Color="#FFB84C" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                <Label Text="En llamada" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="Wheat"/>
+                    <BoxView Color="#F8DF8B" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
+                    <Label Text="Pendiente" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="#F8DF8B"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <BoxView Color="#F266AB" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                <Label Text="En reunion" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="#F266AB"/>
+                    <BoxView Color="#A5E1AD" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
+                    <Label Text="Aceptado" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="#A5E1AD"/>
             </StackLayout>
         </StackLayout>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10" Spacing="18">
+            
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10" Spacing="18">
             <StackLayout Orientation="Horizontal">
-                <BoxView Color="#A459D1" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                <Label Text="En Negociacion" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="#A459D1"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <BoxView Color="#2CD3E1" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                <Label Text="Completado" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="#2CD3E1"/>
+                    <BoxView Color="#FF6363" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
+                    <Label Text="Rechazado" VerticalTextAlignment="Center" Margin="5,0,0,0" TextColor="#FF6363"/>
             </StackLayout>
         </StackLayout>
-            <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
-                <CollectionView ItemsSource="{Binding Clientes}" SelectionMode="Single" SelectionChangedCommand="{Binding ItemSelectedCommand}">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" Color="White" VerticalOptions="Center"/>
+            <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+                <CollectionView ItemsSource="{Binding Clientes}" SelectionMode="Single" SelectionChangedCommand="{Binding ItemSelectedCommand}" IsVisible="{Binding IsNotBusy}">
                     <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="25,5" CornerRadius="24" HasShadow="True" BackgroundColor="#D5FFE4">
+                            <Frame Margin="25,5" CornerRadius="24" HasShadow="True" BackgroundColor="#F8DF8B">
                             <Frame.Triggers>
                                 <!-- Cambiar el color de fondo a #FFB84C cuando el progreso es 0.25 -->
                                 <DataTrigger TargetType="Frame" Binding="{Binding ProgressValue}" Value="0.25">
-                                    <Setter Property="BackgroundColor" Value="#FFB84C"/>
+                                        <Setter Property="BackgroundColor" Value="#F8DF8B"/>
                                 </DataTrigger>
 
                                 <!-- Cambiar el color de fondo a #F266AB cuando el progreso es 0.5 -->
                                 <DataTrigger TargetType="Frame" Binding="{Binding ProgressValue}" Value="0.5">
-                                    <Setter Property="BackgroundColor" Value="#F266AB"/>
+                                        <Setter Property="BackgroundColor" Value="#A5E1AD"/>
                                 </DataTrigger>
 
                                 <!-- Cambiar el color de fondo a #A459D1 cuando el progreso es 0.75 -->
                                 <DataTrigger TargetType="Frame" Binding="{Binding ProgressValue}" Value="0.75">
-                                    <Setter Property="BackgroundColor" Value="#A459D1"/>
-                                </DataTrigger>
-
-                                <!-- Cambiar el color de fondo a #2CD3E1 cuando el progreso es 1 -->
-                                <DataTrigger TargetType="Frame" Binding="{Binding ProgressValue}" Value="1">
-                                    <Setter Property="BackgroundColor" Value="#2CD3E1"/>
+                                        <Setter Property="BackgroundColor" Value="#FF6363"/>
                                 </DataTrigger>
                             </Frame.Triggers>
                             <Grid RowSpacing="10">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <StackLayout Grid.Column="0" Margin="10,5">
-                                    <Label Text="{Binding Bs_Nombre}"  FontSize="16" FontAttributes="Bold" Style="{StaticResource AdaptiveTextStyle}"/>
-                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                    <Image Source="correo.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
-                                        <Label Text="{Binding Bs_Email}" Style="{StaticResource AdaptiveTextStyle}" FontSize="14"/>
-                                </StackLayout>
-                            </StackLayout>
-                             <StackLayout Grid.Column="1" Margin="10,5">
-                                  <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                        <Image Source="telefono.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
-                                        <Label Text="{Binding Bs_Telefono1}" Style="{StaticResource AdaptiveTextStyle}" FontSize="14"/>
-                                  </StackLayout>
-                                  <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                        <Image Source="empresa1.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
-                                        <Label Text="{Binding Bs_Empresa}" Style="{StaticResource AdaptiveTextStyle}" FontSize="14"/>
-                                  </StackLayout>
-                             </StackLayout>
+                                    <StackLayout Grid.Column="0" Margin="10,5,0,0">
+                                        <Label Text="{Binding Bs_Nombre}" FontSize="16" FontAttributes="Bold" Style="{StaticResource AdaptiveTextStyle}"/>
+                                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                            <Image Source="correo.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0" VerticalOptions="Center"/>
+                                            <Label Text="{Binding Bs_Email}" Style="{StaticResource AdaptiveTextStyle}" FontSize="14" VerticalOptions="Center"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1" Margin="10,5">
+                                      <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                            <Image Source="telefono.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
+                                            <Label Text="{Binding Bs_Telefono1}" Style="{StaticResource AdaptiveTextStyle}" FontSize="14"/>
+                                      </StackLayout>
+                                        <StackLayout Orientation="Horizontal" VerticalOptions="Center" >
+                                            <Image Source="empresa1.png" WidthRequest="25" HeightRequest="25" Margin="0,0,5,0"/>
+                                            <Label Text="{Binding Bs_Empresa}" Style="{StaticResource AdaptiveTextStyle}" FontSize="14"/>
+                                        </StackLayout>
+                                    </StackLayout>
                         </Grid>
                     </Frame>
                 </DataTemplate>

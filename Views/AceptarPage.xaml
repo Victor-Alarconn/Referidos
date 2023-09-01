@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Referidos.Views.AceptarPage"
+              x:Name="PageRoot"
              Title="Aceptar"
               BackgroundColor="#242527">
     <ScrollView>
@@ -71,8 +72,8 @@
 
                                         <!-- Botones en la parte inferior -->
                                         <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="CenterAndExpand" Margin="5">
-                                            <Button Text="Aceptar" BackgroundColor="Green" TextColor="White" Margin="5"/>
-                                            <Button Text="Rechazar" BackgroundColor="Red" TextColor="White" Margin="5"/>
+                                            <Button Text="Aceptar" BackgroundColor="Green" TextColor="White" Margin="5" Command="{Binding BindingContext.AceptarCommand, Source={x:Reference PageRoot}}"  CommandParameter="{Binding Bs_nombre}"/>
+                                            <Button Text="Rechazar" BackgroundColor="Red" TextColor="White" Margin="5"  Command="{Binding BindingContext.RechazarCommand, Source={x:Reference PageRoot}}"  CommandParameter="{Binding Bs_nombre}"/>
                                         </StackLayout>
                                     </Grid>
                                 </Grid>

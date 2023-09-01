@@ -15,9 +15,37 @@ namespace Referidos
             string claveGuardada = Preferences.Get("ClaveCache", string.Empty);
             string id = CrossDeviceInfo.Current.Id;
 
-            if (!string.IsNullOrEmpty(claveGuardada))
+            // Suscríbete al evento de cambio de conectividad
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+
+            if (string.IsNullOrEmpty(claveGuardada))
             {
-                // Obtener el estado del usuario
+                // Obtén la clave y el estado del usuario
+                string claveConsultada = ObtenerClaveUsuario(id); // Necesitas implementar esta función
+                int estadoUsuario = ObtenerEstadoUsuario(id);
+
+                if (string.IsNullOrEmpty(claveConsultada) && estadoUsuario == 0)
+                {
+                    MainPage = new NavigationPage(new HomePage());
+                }
+                else if (!string.IsNullOrEmpty(claveConsultada))
+                {
+                    // Guarda la clave en caché
+                    Preferences.Set("ClaveCache", claveConsultada);
+
+                    if (estadoUsuario == 1)
+                    {
+                        MainPage = new AppShell();
+                    }
+                    else if (estadoUsuario == 2)
+                    {
+                        MainPage = new NavigationPage(new HomePage());
+                        Application.Current.MainPage.DisplayAlert("Alerta", "Usuario inhabilitado", "OK");
+                    }
+                }
+            }
+            else
+            {
                 int estadoUsuario = ObtenerEstadoUsuario(id);
 
                 switch (estadoUsuario)
@@ -33,16 +61,41 @@ namespace Referidos
                         Application.Current.MainPage.DisplayAlert("Alerta", "Usuario inhabilitado", "OK");
                         break;
                     default:
-                        // Aquí puedes manejar otros valores de bs_estado o simplemente redirigir al usuario a una página de inicio
                         MainPage = new NavigationPage(new HomePage());
                         break;
                 }
             }
-            else
-            {
-                MainPage = new NavigationPage(new HomePage());
-            }
         }
+
+        private string ObtenerClaveUsuario(string id)
+        {
+            string clave = string.Empty;
+
+            try
+            {
+                using MySqlConnection connection = DataConexion.ObtenerConexion();
+                connection.Open();
+
+                string query = "SELECT bs_clave FROM bs_refe WHERE bs_mac = @id";
+                using MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    clave = reader.GetString("bs_clave");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener la clave del usuario: {ex.Message}");
+            }
+
+            return clave;
+        }
+
+
+
 
         private int ObtenerEstadoUsuario(string id)
         {
@@ -53,7 +106,7 @@ namespace Referidos
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
 
-                string query = "SELECT bs_estado FROM bs_refe WHERE bs_mac = @Mac"; 
+                string query = "SELECT bs_estado FROM bs_refe WHERE bs_mac = @Mac";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@Mac", id);
@@ -71,6 +124,37 @@ namespace Referidos
 
             return estado;
         }
+
+        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            var access = e.NetworkAccess;
+            if (access == NetworkAccess.Internet)
+            {
+                // Conexión a Internet disponible
+            }
+            else
+            {
+                // Conexión a Internet no disponible
+                Application.Current.MainPage.DisplayAlert("Conexión perdida", "Por favor verifica tu conexión a Internet", "OK");
+                DataConexion.CerrarTodasLasConexiones();
+            }
+        }
+
+        protected override void OnSleep()
+        {
+            // Aquí se maneja lo que sucede cuando tu aplicación va al segundo plano
+
+            Connectivity.ConnectivityChanged -= Connectivity_ConnectivityChanged;
+            DataConexion.CerrarTodasLasConexiones();
+        }
+
+        protected override void OnResume()
+        {
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+            DataConexion.CerrarTodasLasConexiones();
+
+        }
+
 
     }
 }

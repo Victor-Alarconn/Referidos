@@ -71,6 +71,28 @@ namespace Referidos.ViewModels
             }
         }
 
+        private string _ciudadR;
+        public string CiudadRefe
+        {
+            get => _ciudadR;
+            set
+            {
+                _ciudadR = value;
+                OnPropertyChanged(nameof(CiudadRefe));
+            }
+        }
+
+        private string _direccionR;
+        public string DireccionRefe
+        {
+            get => _direccionR;
+            set
+            {
+                _direccionR = value;
+                OnPropertyChanged(nameof(DireccionRefe));
+            }
+        }
+
         private string _telefonoR;
         public string TelefonoRefe
         {
@@ -115,6 +137,40 @@ namespace Referidos.ViewModels
             }
         }
 
+        private string _numeroEmpleadosOSucursales;
+        public string NumeroEmpleadosOSucursales
+        {
+            get => _numeroEmpleadosOSucursales;
+            set
+            {
+                _numeroEmpleadosOSucursales = value;
+                OnPropertyChanged(nameof(NumeroEmpleadosOSucursales));
+            }
+        }
+
+        private string _tipoTamañoEmpresa;
+        public string TipoTamañoEmpresa
+        {
+            get => _tipoTamañoEmpresa;
+            set
+            {
+                _tipoTamañoEmpresa = value;
+                OnPropertyChanged(nameof(TipoTamañoEmpresa));
+            }
+        }
+
+        private string _perteneceAEmpresa;
+        public string PerteneceAEmpresa
+        {
+            get => _perteneceAEmpresa;
+            set
+            {
+                _perteneceAEmpresa = value;
+                OnPropertyChanged(nameof(PerteneceAEmpresa));
+            }
+        }
+
+
         private async Task Cancelar()
         {
             await Shell.Current.GoToAsync("//PrincipalPage");
@@ -122,13 +178,14 @@ namespace Referidos.ViewModels
 
         private async void EnviarRefe()
         {
-            
             string id = CrossDeviceInfo.Current.Id;
             string NombreUsuario = Preferences.Get("NombreUsuarioCache", string.Empty);
             string Asesor = Preferences.Get("AsesorCache", string.Empty);
+            int tipoTamañoEmpresaValue = TipoTamañoEmpresa == "Sucursales" ? 1 : 2;
+            int perteneceAEmpresaValue = PerteneceAEmpresa == "Sí" ? 1 : 2;
 
             // Validar que los campos requeridos no estén vacíos
-            if (string.IsNullOrEmpty(NombreCompletoRefe) || string.IsNullOrEmpty(TelefonoRefe))
+            if (string.IsNullOrEmpty(NombreCompletoRefe) || string.IsNullOrEmpty(TelefonoRefe) || string.IsNullOrEmpty(CiudadRefe))
             {
                 // Mostrar el mensaje de error utilizando DisplayAlert
                 await Application.Current.MainPage.DisplayAlert("Error", "Faltan campos por rellenar.", "OK");
@@ -140,8 +197,8 @@ namespace Referidos.ViewModels
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
 
-                string query = "INSERT INTO bs_main (bs_Nombre, bs_Email, bs_Telefono1, bs_Empresa, bs_Tipo, bs_Fecha, bs_estado, bs_Equipo, bs_Notas, bs_Refiere, bs_vend) " +
-               "VALUES (@NombreCompleto, @Correo, @Telefono, @Empresa, @Tipo, @FechaIngreso, @Estado, @Mac, @Notas, @Refiere, @Asesor)";
+                string query = "INSERT INTO bs_main (bs_Nombre, bs_Email, bs_Telef1, bs_Empresa, bs_Tipo, bs_Fecha, bs_Estado, bs_Equipo, bs_Notas, bs_Refiere, bs_vend, bs_Direcci, bs_Ciudad, bs_tipotam, bs_Ntipo, bs_pertene) " +
+                 "VALUES (@NombreCompleto, @Correo, @Telefono, @Empresa, @Tipo, @FechaIngreso, @Estado, @Mac, @Notas, @Refiere, @Asesor, @Direccion, @Ciudad, @TipoTamaño, @NumTamaño, @Pertenece)";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@NombreCompleto", NombreCompletoRefe);
@@ -157,6 +214,11 @@ namespace Referidos.ViewModels
                 cmd.Parameters.AddWithValue("@Notas", NotasRefe);
                 cmd.Parameters.AddWithValue("@Refiere", NombreUsuario);
                 cmd.Parameters.AddWithValue("@Asesor", Asesor);
+                cmd.Parameters.AddWithValue("@Direccion", DireccionRefe);
+                cmd.Parameters.AddWithValue("@Ciudad", CiudadRefe);
+                cmd.Parameters.AddWithValue("@TipoTamaño", tipoTamañoEmpresaValue);
+                cmd.Parameters.AddWithValue("@NumTamaño", NumeroEmpleadosOSucursales);
+                cmd.Parameters.AddWithValue("@Pertenece", perteneceAEmpresaValue);
                 cmd.ExecuteNonQuery();
 
                 // Mostrar la alerta de éxito si el registro fue exitoso
@@ -165,7 +227,7 @@ namespace Referidos.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw;
+                await App.Current.MainPage.DisplayAlert("Error", "Ocurrió un error al enviar los datos. Por favor, verifica tu conexión y vuelve a intentarlo.", "OK");
             }
         }
 
@@ -186,6 +248,11 @@ namespace Referidos.ViewModels
             EmpresaRefe = string.Empty;
             NotasRefe = string.Empty;
             TipoRefe = null;
+            DireccionRefe = string.Empty;
+            CiudadRefe = string.Empty;
+            NumeroEmpleadosOSucursales = string.Empty;
+            PerteneceAEmpresa = null;
+            TipoTamañoEmpresa = null;
             // Y cualquier otro campo que desees restablecer
         }
 

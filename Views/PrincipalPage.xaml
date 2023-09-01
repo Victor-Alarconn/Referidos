@@ -16,13 +16,13 @@
                           VerticalOptions="FillAndExpand">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding}" Aspect="AspectFit" />
+                        <Image Source="{Binding ImagePath}" Aspect="AspectFit"/>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-
+            <Button Command="{Binding OpenLinkCommand}" Text="Saber Mas" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" CornerRadius="10" Margin="20,15"/>
             <!-- Nueva imagen -->
-            <Image Source="beneficios.png" Aspect="AspectFit" HeightRequest="300" HorizontalOptions="Center" />
+            <Image Source="{Binding Imagen}" Aspect="AspectFit" HeightRequest="300" HorizontalOptions="Center" />
 
             <!-- Boton en la parte inferior -->
             <Button Text="Refiere" Command="{Binding RefiereCommand}" HorizontalOptions="FillAndExpand" 

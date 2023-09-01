@@ -187,14 +187,9 @@ namespace Referidos.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw;
+                await App.Current.MainPage.DisplayAlert("Error", "Ocurrió un error al enviar los datos. Por favor, verifica tu conexión y vuelve a intentarlo.", "OK");
             }
         }
-
-    
-
-
-
 
         private async Task MostrarAlertaExito()
         {

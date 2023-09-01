@@ -27,31 +27,80 @@ namespace Referidos.ViewModels
             {
                 isBusy = value;
                 OnPropertyChanged(nameof(IsBusy));
+                OnPropertyChanged(nameof(IsNotBusy));
             }
         }
 
+        private bool isRefreshing;
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set
+            {
+                isRefreshing = value;
+                OnPropertyChanged(nameof(IsRefreshing));
+            }
+        }
+
+        public bool IsNotBusy
+        {
+            get { return !IsBusy; }
+        }
+
         public ICommand RefreshCommand { get; }
-
-
-
 
 
         public ProgresoPageViewModel()
         {
             Clientes = new ObservableCollection<Clientes>();
             RefreshCommand = new Command(async () => await LoadData());
-            // Aquí puedes agregar lógica para obtener los datos de la base de datos y llenar la lista de usuarios
+
+            // Al cargar la vista, sólo activa el ActivityIndicator
+            IsBusy = true;
+            IsRefreshing = false;
+
+            // Carga tus datos
+            LoadInitialData();
+        }
+
+        private async Task LoadInitialData()
+        {
+            // Carga tus datos
             CargarUsuarios();
+
+            // Añade una demora artificial si es necesario
+            await Task.Delay(2000);  // demora de 1 segundo
+
+            IsBusy = false;
         }
 
         private async Task LoadData()
         {
-            IsBusy = true;
-
-            CargarUsuarios();
-
+            IsRefreshing = true;
             IsBusy = false;
+
+            try
+            {
+                // Carga tus datos
+                CargarUsuarios();
+
+                // Añade una demora artificial
+                await Task.Delay(2000);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+            finally
+            {
+                // Asegurarte de que IsRefreshing se restablezca
+                // incluso si hay una excepción
+                IsRefreshing = false;
+            }
         }
+
+
         private void CargarUsuarios()
         {
             try
@@ -63,7 +112,7 @@ namespace Referidos.ViewModels
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
 
-                string query = "SELECT bs_Nombre, bs_Telefono1, bs_Empresa, bs_email, bs_Estado FROM bs_main WHERE bs_Equipo = @EquipoId";
+                string query = "SELECT bs_Nombre, bs_Telef1, bs_Empresa, bs_email, bs_Estado FROM bs_main WHERE bs_Equipo = @EquipoId";
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@EquipoId", id);
 
@@ -71,7 +120,7 @@ namespace Referidos.ViewModels
                 while (reader.Read())
                 {
                     string nombre = GetOrDefault(reader, "bs_Nombre");
-                    string telefono = GetOrDefault(reader, "bs_Telefono1");
+                    string telefono = GetOrDefault(reader, "bs_Telef1");
                     string empresa = GetOrDefault(reader, "bs_Empresa");
                     string email = GetOrDefault(reader, "bs_email");
                     int estado = reader.IsDBNull(reader.GetOrdinal("bs_Estado")) ? 0 : reader.GetInt32(reader.GetOrdinal("bs_Estado"));
@@ -83,7 +132,8 @@ namespace Referidos.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw;
+                App.Current.MainPage.DisplayAlert("Error", "Ocurrió un error al cargar los datos. Por favor, verifica tu conexión y vuelve a intentarlo.", "OK");
+                
             }
         }
 
@@ -95,9 +145,6 @@ namespace Referidos.ViewModels
             }
             return "No aplica";
         }
-
-
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;
