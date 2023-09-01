@@ -89,6 +89,9 @@
 	  <MauiXaml Update="Views\AceptarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\EstadisticaPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\PrincipalPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -22,10 +22,10 @@ namespace Referidos.ViewModels
         public RefierePageViewModel()
         {
             EnviarRefeCommand = new Command(EnviarRefe);
-            CancelarCommand = new Command(async () => await Cancelar());
+            CancelarCommand = new Command(async () => await RefierePageViewModel.Cancelar());
         }
 
-        private List<string> _tiposReferencia = new List<string>
+        private readonly List<string> _tiposReferencia = new List<string>
         {
             "Sector Comercial",
             "Servicios",
@@ -171,7 +171,7 @@ namespace Referidos.ViewModels
         }
 
 
-        private async Task Cancelar()
+        private static async Task Cancelar()
         {
             await Shell.Current.GoToAsync("//PrincipalPage");
         }

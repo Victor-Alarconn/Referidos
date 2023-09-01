@@ -1,6 +1,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Referidos.Views.PrincipalPage"
+             xmlns:viewmodels="clr-namespace:Referidos.ViewModels"
+             x:DataType="viewmodels:PrincipalPageViewModel"
+             xmlns:local="clr-namespace:Referidos.ViewModels"
              Title="Inicio"
              BackgroundColor="#242527">
 
@@ -15,7 +18,7 @@
                           HorizontalOptions="FillAndExpand"
                           VerticalOptions="FillAndExpand">
                 <CarouselView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="local:ImageInfo">
                         <Image Source="{Binding ImagePath}" Aspect="AspectFit"/>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>

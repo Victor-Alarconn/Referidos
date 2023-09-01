@@ -12,13 +12,14 @@ using System.Windows.Input;
 
 namespace Referidos.ViewModels
 {
+    public class ImageInfo
+    {
+        public string ImagePath { get; set; }
+        public string Link { get; set; }
+    }
     public class PrincipalPageViewModel : INotifyPropertyChanged
     {
-        public class ImageInfo
-        {
-            public string ImagePath { get; set; }
-            public string Link { get; set; }
-        }
+       
 
         public ObservableCollection<ImageInfo> ImagePaths { get; set; }
 
@@ -38,7 +39,7 @@ namespace Referidos.ViewModels
 
         public PrincipalPageViewModel()
         {
-            RefiereCommand = new Command(async () => await Mover());
+            RefiereCommand = new Command(async () => await PrincipalPageViewModel.Mover());
 
             // Inicializar la colección
             ImagePaths = new ObservableCollection<ImageInfo>();
@@ -93,7 +94,7 @@ namespace Referidos.ViewModels
                 string ruta = reader.GetString("ruta_img");
                 string link = reader.GetString("bs_links");
 
-                var rutaLocal = await DescargarImagenYGuardar(ruta);
+                var rutaLocal = await PrincipalPageViewModel.DescargarImagenYGuardar(ruta);
 
                 ImagePaths.Add(new ImageInfo { ImagePath = rutaLocal, Link = link });
             }
@@ -112,13 +113,13 @@ namespace Referidos.ViewModels
             if (reader.Read())
             {
                 string ruta = reader.GetString("bs_url");
-                Imagen = await DescargarImagenYGuardar(ruta);
+                Imagen = await PrincipalPageViewModel.DescargarImagenYGuardar(ruta);
             }
         }
 
 
 
-        public async Task<string> DescargarImagenYGuardar(string imageUrl)
+        public static async Task<string> DescargarImagenYGuardar(string imageUrl)
         {
             try
             {
@@ -147,7 +148,7 @@ namespace Referidos.ViewModels
         }
 
 
-        private async Task Mover()
+        private static async Task Mover()
         {
             await Shell.Current.GoToAsync("//RefierePage");
         }

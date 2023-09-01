@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Referidos.Views.RegistroUsuarioPage"
              Title="Registro de Usuario"
+             xmlns:viewmodels="clr-namespace:Referidos.ViewModels"
+             x:DataType="viewmodels:RegistroUsuarioViewModel"
              BackgroundColor="#242527"
              >
     <Grid>

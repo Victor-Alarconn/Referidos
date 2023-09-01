@@ -73,13 +73,13 @@ namespace Referidos.ViewModels
                 using MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    string nombre = GetOrDefault(reader, "bs_nombre");
-                    string telefono = GetOrDefault(reader, "bs_telefono");
-                    string empresa = GetOrDefault(reader, "bs_empres");
-                    string email = GetOrDefault(reader, "bs_correo");
-                    string ciudad = GetOrDefault(reader, "bs_ciudad");
-                    string cargo = GetOrDefault(reader, "bs_cargo");
-                    string vend = GetOrDefault(reader, "bs_vend");
+                    string nombre = AceptarPageViewModel.GetOrDefault(reader, "bs_nombre");
+                    string telefono = AceptarPageViewModel.GetOrDefault(reader, "bs_telefono");
+                    string empresa = AceptarPageViewModel.GetOrDefault(reader, "bs_empres");
+                    string email = AceptarPageViewModel.GetOrDefault(reader, "bs_correo");
+                    string ciudad = AceptarPageViewModel.GetOrDefault(reader, "bs_ciudad");
+                    string cargo = AceptarPageViewModel.GetOrDefault(reader, "bs_cargo");
+                    string vend = AceptarPageViewModel.GetOrDefault(reader, "bs_vend");
 
                     Clientes.Add(new Referido { Bs_nombre = nombre, Bs_correo = email, Bs_telefono = telefono, Bs_empresa = empresa, Bs_ciudad = ciudad, Bs_cargo = cargo, Bs_vend = vend });
                 }
@@ -91,7 +91,7 @@ namespace Referidos.ViewModels
             }
         }
 
-        private string GetOrDefault(MySqlDataReader reader, string columnName)
+        private static string GetOrDefault(MySqlDataReader reader, string columnName)
         {
             if (!reader.IsDBNull(reader.GetOrdinal(columnName)))
             {
