@@ -49,6 +49,9 @@
     <FlyoutItem Title="Aceptacion" Icon="aceptar.png" IsVisible="{Binding MostrarAceptacion}">
         <ShellContent Route="Aceptar" ContentTemplate="{DataTemplate local:Views.AceptarPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Estadistica" Icon="estadistica.png" IsVisible="{Binding MostrarAceptacion}">
+        <ShellContent Route="Estadistica" ContentTemplate="{DataTemplate local:Views.EstadisticaPage}" />
+    </FlyoutItem>
 
     <Shell.FlyoutFooter>
         <StackLayout Padding="20" VerticalOptions="CenterAndExpand">
