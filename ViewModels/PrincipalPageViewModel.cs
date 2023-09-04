@@ -19,8 +19,8 @@ namespace Referidos.ViewModels
     }
     public class PrincipalPageViewModel : INotifyPropertyChanged
     {
-       
 
+        private System.Timers.Timer _carouselTimer;
         public ObservableCollection<ImageInfo> ImagePaths { get; set; }
 
         private string _imagen;
@@ -47,16 +47,22 @@ namespace Referidos.ViewModels
 
 
             // Cargar las imágenes desde la base de datos
-            CargarImagenesDesdeBD();
-            CargarImagenBD();
+            _ = CargarImagenesDesdeBD();
+            _ = CargarImagenBD();
 
-            System.Timers.Timer carouselTimer = new System.Timers.Timer();
-            carouselTimer.Interval = 10000; // 10 segundos
-            carouselTimer.Elapsed += (s, e) =>
+            _carouselTimer = new System.Timers.Timer();
+            _carouselTimer.Interval = 10000; // 10 segundos
+            _carouselTimer.Elapsed += (s, e) =>
             {
                 CurrentPosition = (CurrentPosition + 1) % ImagePaths.Count;
             };
-            carouselTimer.Start();
+            _carouselTimer.Start();
+        }
+
+        public void Dispose()
+        {
+            _carouselTimer?.Stop();
+            _carouselTimer?.Dispose();
         }
 
         private async void OpenLink()
@@ -106,7 +112,7 @@ namespace Referidos.ViewModels
             using MySqlConnection connection = DataConexion.ObtenerConexion();
             connection.Open();
 
-            string query = "SELECT bs_url FROM bs_img LIMIT 1"; // Limitamos a una sola imagen
+            string query = "SELECT bs_url FROM bs_img"; 
             using MySqlCommand cmd = new MySqlCommand(query, connection);
             using MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -125,8 +131,16 @@ namespace Referidos.ViewModels
             {
                 using var client = new HttpClient();
                 var bytes = await client.GetByteArrayAsync(imageUrl);
-                var filename = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".jpg");
-                await File.WriteAllBytesAsync(filename, bytes);
+
+                // Aquí es donde cambiamos la lógica de almacenamiento
+                var dataDir = System.IO.Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, "images");
+                if (!System.IO.Directory.Exists(dataDir))
+                {
+                    System.IO.Directory.CreateDirectory(dataDir);
+                }
+                var filename = System.IO.Path.Combine(dataDir, System.IO.Path.GetRandomFileName() + ".jpg");
+                await System.IO.File.WriteAllBytesAsync(filename, bytes);
+
                 return filename;
             }
             catch (Exception ex)
@@ -135,6 +149,7 @@ namespace Referidos.ViewModels
                 return string.Empty;
             }
         }
+
 
         private int _currentPosition;
         public int CurrentPosition

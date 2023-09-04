@@ -164,7 +164,7 @@ namespace Referidos.ViewModels
                 Preferences.Set("NombreUsuarioCache", NombreCompleto);
                 Preferences.Set("AsesorCache", Asesor);
 
-                string query = "INSERT INTO bs_refe (bs_nombre, bs_cargo, bs_correo, bs_telefono, bs_ciudad, bs_vend, bs_fingreso, bs_estado, bs_mac) " +
+                string query = "INSERT INTO bs_refe (bs_nombre, bs_cargo, bs_correo, bs_telefono, bs_ciudad, bs_vend, bs_fingre, bs_estado, bs_mac) " +
                "VALUES (@NombreCompleto, @Cargo, @Correo, @Telefono, @Ciudad, @Asesor, @FechaIngreso, @Estado, @Mac)";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
