@@ -228,6 +228,7 @@ namespace Referidos.ViewModels
             {
                 Console.WriteLine(ex);
                 await App.Current.MainPage.DisplayAlert("Error", "Ocurrió un error al enviar los datos. Por favor, verifica tu conexión y vuelve a intentarlo.", "OK");
+                Console.WriteLine($"Error al procesar la solicitud: {ex.Message}");
             }
         }
 
