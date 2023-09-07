@@ -13,18 +13,27 @@ namespace Referidos.Data
         // Lista para almacenar todas las conexiones activas
         public static List<MySqlConnection> ConexionesActivas = new List<MySqlConnection>();
 
+        public static class ConfiguracionBD
+        {
+            public static Dictionary<string, string> conexiones = new Dictionary<string, string>
+    {
+        { "Local", "Server=192.168.1.150;User ID=root;Password=**Rm20So23fT**;Database=clix;SslMode=None" },
+        { "Producción", "Server=200.118.190.167;User ID=RmSoft20X;Password=*LiLo89*;Database=clix;SslMode=None" }
+    };
+
+            public static string ConexionActual = conexiones["Local"];
+        }
+
+
         public static MySqlConnection ObtenerConexion()
         {
-           string connectionString = "Server=192.168.1.150;User ID=root;Password=**Rm20So23fT**;Database=clix;SslMode=None";
-           // string connectionString = "Server=200.118.190.167;User ID=RmSoft20X;Password=*LiLo89*;Database=clix;SslMode=None";
-
-
+            string connectionString = ConfiguracionBD.ConexionActual;
             MySqlConnection connection = new MySqlConnection(connectionString);
             // Agrega la conexión a la lista
             ConexionesActivas.Add(connection);
-
             return connection;
         }
+
 
         public static void CerrarTodasLasConexiones()
         {
