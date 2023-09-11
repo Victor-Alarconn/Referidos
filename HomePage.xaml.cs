@@ -17,6 +17,11 @@ namespace Referidos
         {
             var seleccion = await DisplayActionSheet("Selecciona una conexión", "Cancelar", null, ConfiguracionBD.conexiones.Keys.ToArray());
 
+            if (string.IsNullOrEmpty(seleccion))
+            {
+                // Si la selección es nula o vacía, simplemente regresa y no hagas nada.
+                return;
+            }
             if (ConfiguracionBD.conexiones.ContainsKey(seleccion))
             {
                 ConfiguracionBD.ConexionActual = ConfiguracionBD.conexiones[seleccion];

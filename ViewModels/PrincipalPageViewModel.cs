@@ -36,6 +36,7 @@ namespace Referidos.ViewModels
 
         public ICommand RefiereCommand { get; private set; }
         public ICommand OpenLinkCommand { get; private set; }
+        //public ICommand borrarCommand { get; private set; }
 
         public PrincipalPageViewModel()
         {
@@ -44,6 +45,7 @@ namespace Referidos.ViewModels
             // Inicializar la colección
             ImagePaths = new ObservableCollection<ImageInfo>();
             OpenLinkCommand = new Command(OpenLink);
+            //borrarCommand = new Command(async () => await borrar());
 
 
             // Cargar las imágenes desde la base de datos
@@ -161,6 +163,39 @@ namespace Referidos.ViewModels
                 OnPropertyChanged(nameof(CurrentPosition));
             }
         }
+
+      private async Task borrar()
+      {
+        try
+        {
+            using MySqlConnection connection = DataConexion.ObtenerConexion();
+            connection.Open();
+
+            // Definir la consulta SQL para actualizar los registros
+            string query = "UPDATE bs_refe SET bs_vend = 3 WHERE bs_nombre = @nombre";
+
+            using MySqlCommand cmd = new MySqlCommand(query, connection);
+        
+            // Establecer el parámetro para la consulta
+            cmd.Parameters.AddWithValue("@nombre", "ELIUTH NIÑO Salcedo");
+
+            // Ejecutar la consulta
+            int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Registros actualizados con éxito.");
+            }
+            else
+            {
+                Console.WriteLine("No se encontraron registros para actualizar.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+}
 
 
         private static async Task Mover()

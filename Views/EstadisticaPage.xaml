@@ -2,9 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Referidos.Views.EstadisticaPage"
+             x:Name="PageRoot"
              Title="Estadisticas"
-              x:Name="PageRoot"
              BackgroundColor="#242527">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Admin" Clicked="OnAdminClicked"/>
+    </ContentPage.ToolbarItems>
     <ScrollView>
         <StackLayout>
             <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">

@@ -57,7 +57,8 @@ namespace Referidos.ViewModels
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
 
-                string query = "SELECT bs_nombre, bs_clave, bs_empres, bs_correo, bs_ciudad, bs_cargo, bs_fingre, bs_vend FROM bs_refe WHERE (bs_vend = @AsesorCache OR bs_vend = '0') AND bs_estado = 1 AND bs_empres != 'rm'";
+                string query = "SELECT bs_nombre, bs_clave, bs_empres, bs_correo, bs_ciudad, bs_cargo, bs_fingre, bs_vend FROM bs_refe WHERE(bs_vend = @AsesorCache OR bs_vend = '3') AND bs_estado = 1 AND(bs_empres != 'rm' OR bs_empres IS NULL)";
+
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@AsesorCache", AsesorCache);

@@ -18,7 +18,7 @@ namespace Referidos.Data
             public static Dictionary<string, string> conexiones = new Dictionary<string, string>
     {
         { "Local", "Server=192.168.1.150;User ID=root;Password=**Rm20So23fT**;Database=clix;SslMode=None" },
-        { "Producción", "Server=200.118.190.167;User ID=RmSoft20X;Password=*LiLo89*;Database=clix;SslMode=None" }
+        { "Produccion", "Server=200.118.190.167;User ID=RmSoft20X;Password=*LiLo89*;Database=clix;SslMode=None" }
     };
 
             public static string ConexionActual = conexiones["Local"];

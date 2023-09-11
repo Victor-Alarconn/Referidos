@@ -191,7 +191,6 @@ namespace Referidos.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", "Faltan campos por rellenar.", "OK");
                 return; // Salir del método si hay campos requeridos vacíos
             }
-
             try
             {
                 using MySqlConnection connection = DataConexion.ObtenerConexion();

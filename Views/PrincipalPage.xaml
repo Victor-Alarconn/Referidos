@@ -29,6 +29,8 @@
             <!-- Boton en la parte inferior -->
             <Button Text="Refiere" Command="{Binding RefiereCommand}" HorizontalOptions="FillAndExpand" 
                 BackgroundColor="#512BD4" TextColor="White" FontAttributes="Bold" CornerRadius="10" Margin="20,15"/>
+            <!--<Button Text="borrar" Command="{Binding borrarCommand}" HorizontalOptions="FillAndExpand" 
+                BackgroundColor="#512BD4" TextColor="White" FontAttributes="Bold" CornerRadius="10" Margin="20,15"/>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>
