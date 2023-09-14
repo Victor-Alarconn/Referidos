@@ -185,7 +185,7 @@ namespace Referidos.ViewModels
             int perteneceAEmpresaValue = PerteneceAEmpresa == "Sí" ? 1 : 2;
 
             // Validar que los campos requeridos no estén vacíos
-            if (string.IsNullOrEmpty(NombreCompletoRefe) || string.IsNullOrEmpty(TelefonoRefe) || string.IsNullOrEmpty(CiudadRefe))
+            if (string.IsNullOrEmpty(NombreCompletoRefe) || string.IsNullOrEmpty(TelefonoRefe) || string.IsNullOrEmpty(CiudadRefe) || string.IsNullOrEmpty(EmpresaRefe))
             {
                 // Mostrar el mensaje de error utilizando DisplayAlert
                 await Application.Current.MainPage.DisplayAlert("Error", "Faltan campos por rellenar.", "OK");
@@ -195,6 +195,20 @@ namespace Referidos.ViewModels
             {
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
+
+                string checkQuery = "SELECT COUNT(*) FROM bs_main WHERE bs_Telef1 = @TelefonoRefe AND bs_Empresa = @EmpresaRefe";
+                using MySqlCommand checkCmd = new MySqlCommand(checkQuery, connection);
+                checkCmd.Parameters.AddWithValue("@TelefonoRefe", TelefonoRefe);
+                checkCmd.Parameters.AddWithValue("@EmpresaRefe", EmpresaRefe);
+
+                int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                if (count > 0)
+                {
+                    // Si hay algún registro que coincida, muestra una alerta y sale de la función
+                    await Application.Current.MainPage.DisplayAlert("Atención", "Hay un usuario con datos similares. Verifique los datos.", "OK");
+                    return;
+                }
 
                 string query = "INSERT INTO bs_main (bs_Nombre, bs_Email, bs_Telef1, bs_Empresa, bs_Tipo, bs_Fecha, bs_Estado, bs_Equipo, bs_Notas, bs_Refiere, bs_vend, bs_Direcci, bs_Ciudad, bs_tipotam, bs_Ntipo, bs_pertene) " +
                  "VALUES (@NombreCompleto, @Correo, @Telefono, @Empresa, @Tipo, @FechaIngreso, @Estado, @Mac, @Notas, @Refiere, @Asesor, @Direccion, @Ciudad, @TipoTamaño, @NumTamaño, @Pertenece)";

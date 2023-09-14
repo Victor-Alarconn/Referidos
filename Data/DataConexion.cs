@@ -21,7 +21,7 @@ namespace Referidos.Data
         { "Produccion", "Server=200.118.190.167;User ID=RmSoft20X;Password=*LiLo89*;Database=clix;SslMode=None" }
     };
 
-            public static string ConexionActual = conexiones["Local"];
+            public static string ConexionActual = conexiones["Local"];  
         }
 
 
@@ -37,16 +37,29 @@ namespace Referidos.Data
 
         public static void CerrarTodasLasConexiones()
         {
+            List<MySqlConnection> conexionesEliminadas = new List<MySqlConnection>();
             foreach (var conexion in ConexionesActivas)
             {
-                if (conexion.State == ConnectionState.Open)
+                try
                 {
-                    conexion.Close();
+                    if (conexion.State == ConnectionState.Open)
+                    {
+                        conexion.Close();
+                        conexionesEliminadas.Add(conexion);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
                 }
             }
 
-            // Limpiar la lista una vez que todas las conexiones estén cerradas
-            ConexionesActivas.Clear();
+            // Solo elimina las conexiones que se cerraron correctamente
+            foreach (var conexion in conexionesEliminadas)
+            {
+                ConexionesActivas.Remove(conexion);
+            }
         }
+
     }
 }
