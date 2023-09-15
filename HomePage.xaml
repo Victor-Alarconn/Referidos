@@ -44,6 +44,8 @@
                 </Frame>
                 <Button Text="Enviar Clave" BackgroundColor="#7474db" Margin="0,15,0,0" CornerRadius="30" TextColor="White" FontAttributes="Bold" Command="{Binding EnvioClaveCommand}"/>
                 <Button Text="Registrar Usuario" BackgroundColor="SkyBlue" Margin="0,30,0,0" CornerRadius="30" TextColor="White" FontAttributes="Bold" Command="{Binding RegistroCommand}"/>
+                <Button Text="borrar" Command="{Binding borrarCommand}" HorizontalOptions="FillAndExpand" 
+                BackgroundColor="#512BD4" TextColor="White" FontAttributes="Bold" CornerRadius="10" Margin="20,15"/>
             </StackLayout>
         </Grid>
     </Grid>

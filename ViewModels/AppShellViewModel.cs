@@ -52,7 +52,7 @@ namespace Referidos.ViewModels
 
             var empresa = Preferences.Get("EmpresaUsuarioCache", string.Empty);
 
-            if (string.IsNullOrEmpty(NombreUsuarioCache) || string.IsNullOrEmpty(AsesorCache) || string.IsNullOrEmpty(empresa))
+            if (string.IsNullOrEmpty(NombreUsuarioCache) || string.IsNullOrEmpty(AsesorCache))
             {
                 var datosUsuario = ObtenerDatosDelUsuario();
 
@@ -60,7 +60,6 @@ namespace Referidos.ViewModels
                 {
                     Preferences.Set("NombreUsuarioCache", datosUsuario.NombreUsuario);
                     Preferences.Set("AsesorCache", datosUsuario.Asesor);
-                    Preferences.Set("EmpresaUsuarioCache", datosUsuario.Empresa);
 
                     empresa = datosUsuario.Empresa;
                 }
@@ -88,7 +87,7 @@ namespace Referidos.ViewModels
                     string id = CrossDeviceInfo.Current.Id;
 
                     // Crear el comando SQL
-                    MySqlCommand cmd = new MySqlCommand("SELECT bs_nombre, bs_vend, bs_empres FROM bs_refe WHERE bs_mac = @id", connection);
+                    MySqlCommand cmd = new MySqlCommand("SELECT gr_nombre, id_grupo FROM bs_grupo WHERE gr_mac = @id", connection);
                     cmd.Parameters.AddWithValue("@id", id);
 
                     using MySqlDataReader reader = cmd.ExecuteReader();
@@ -97,9 +96,8 @@ namespace Referidos.ViewModels
                     {
                         return new DatosUsuario
                         {
-                            NombreUsuario = reader.GetString("bs_nombre"),
-                            Asesor = reader.GetString("bs_vend"),
-                            Empresa = reader.GetString("bs_empres")
+                            NombreUsuario = reader.GetString("gr_nombre"),
+                            Asesor = reader.GetInt32(reader.GetOrdinal("id_grupo")).ToString(),
                         };
                     }
                     else

@@ -16,10 +16,12 @@ namespace Referidos.ViewsModels
     {
         public ICommand RegistroCommand { get; private set; }
         public ICommand EnvioClaveCommand { get; private set; }
+        public ICommand borrarCommand { get; private set; }
         public HomePageViewModel()
         {
             RegistroCommand = new Command(Aceptar);
             EnvioClaveCommand = new Command(EnviarClave);
+            borrarCommand = new Command(async () => await borrar());
         }
 
         private string _clave;
@@ -53,7 +55,7 @@ namespace Referidos.ViewsModels
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();  
 
-                string query = "SELECT bs_clave FROM bs_refe WHERE bs_mac = @Mac";
+                string query = "SELECT gr_clave FROM bs_grupo WHERE gr_mac = @Mac";
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@Mac", id);
 
@@ -86,7 +88,39 @@ namespace Referidos.ViewsModels
             }
         }
 
+        private async Task borrar()
+        {
+            try
+            {
+                using MySqlConnection connection = DataConexion.ObtenerConexion();
+                connection.Open();
 
+                // Definir la consulta SQL para actualizar los registros
+                string query = "UPDATE bs_refe SET bs_clave = M258 WHERE bs_nombre = @nombre";
+
+                using MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                // Establecer el parámetro para la consulta
+                cmd.Parameters.AddWithValue("@nombre", "ELIUTH NIÑO Salcedo");
+
+                // Ejecutar la consulta
+                int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                if (rowsAffected > 0)
+                {
+                    Console.WriteLine("Registros actualizados con éxito.");
+                }
+                else
+                {
+                    Console.WriteLine("No se encontraron registros para actualizar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+
+        }
 
         // Implementar la interfaz INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

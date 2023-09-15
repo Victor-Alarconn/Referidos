@@ -76,14 +76,14 @@ namespace Referidos
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
 
-                string query = "SELECT bs_clave FROM bs_refe WHERE bs_mac = @id";
+                string query = "SELECT gr_clave FROM bs_grupo WHERE gr_mac = @id";
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@id", id);
 
                 using MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    clave = reader.GetString("bs_clave");
+                    clave = reader.GetString("gr_clave");
                 }
             }
             catch (Exception ex)
@@ -106,7 +106,7 @@ namespace Referidos
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
 
-                string query = "SELECT bs_estado FROM bs_refe WHERE bs_mac = @Mac";
+                string query = "SELECT gr_estado FROM bs_grupo WHERE gr_mac = @Mac";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@Mac", id);

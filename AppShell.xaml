@@ -46,10 +46,10 @@
     <FlyoutItem Title="Progreso" Icon="progreso.png">
         <ShellContent Route="Progreso" ContentTemplate="{DataTemplate local:Views.ProgresoPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Aceptacion" Icon="aceptar.png" IsVisible="{Binding MostrarAceptacion}">
+    <FlyoutItem Title="Aceptacion" Icon="aceptar.png">
         <ShellContent Route="Aceptar" ContentTemplate="{DataTemplate local:Views.AceptarPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Estadistica" Icon="estadistica.png" IsVisible="{Binding MostrarAceptacion}">
+    <FlyoutItem Title="Estadistica" Icon="estadistica.png">
         <ShellContent Route="Estadistica" ContentTemplate="{DataTemplate local:Views.EstadisticaPage}" />
     </FlyoutItem>
 

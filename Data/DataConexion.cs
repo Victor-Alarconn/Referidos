@@ -21,7 +21,7 @@ namespace Referidos.Data
         { "Produccion", "Server=200.118.190.167;User ID=RmSoft20X;Password=*LiLo89*;Database=clix;SslMode=None" }
     };
 
-            public static string ConexionActual = conexiones["Local"];  
+            public static string ConexionActual = conexiones["Produccion"];  
         }
 
 
