@@ -181,16 +181,35 @@ namespace Referidos.ViewModels
             string id = CrossDeviceInfo.Current.Id;
             string NombreUsuario = Preferences.Get("NombreUsuarioCache", string.Empty);
             string Asesor = Preferences.Get("AsesorCache", string.Empty);
+            string idrefe = Preferences.Get("IdCache", string.Empty);
             int tipoTamañoEmpresaValue = TipoTamañoEmpresa == "Sucursales" ? 1 : 2;
             int perteneceAEmpresaValue = PerteneceAEmpresa == "Sí" ? 1 : 2;
 
             // Validar que los campos requeridos no estén vacíos
-            if (string.IsNullOrEmpty(NombreCompletoRefe) || string.IsNullOrEmpty(TelefonoRefe) || string.IsNullOrEmpty(CiudadRefe) || string.IsNullOrEmpty(EmpresaRefe))
+            if (string.IsNullOrEmpty(NombreCompletoRefe))
             {
-                // Mostrar el mensaje de error utilizando DisplayAlert
-                await Application.Current.MainPage.DisplayAlert("Error", "Faltan campos por rellenar.", "OK");
-                return; // Salir del método si hay campos requeridos vacíos
+                await Application.Current.MainPage.DisplayAlert("Error", "El nombre completo está vacío.", "OK");
+                return;
             }
+
+            if (string.IsNullOrEmpty(TelefonoRefe))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "El teléfono está vacío.", "OK");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(CiudadRefe))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "La ciudad está vacía.", "OK");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(EmpresaRefe))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "La empresa  está vacía.", "OK");
+                return;
+            }
+
             try
             {
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
@@ -210,8 +229,8 @@ namespace Referidos.ViewModels
                     return;
                 }
 
-                string query = "INSERT INTO bs_main (bs_Nombre, bs_Email, bs_Telef1, bs_Empresa, bs_Tipo, bs_Fecha, bs_Estado, bs_Equipo, bs_Notas, bs_Refiere, bs_vend, bs_Direcci, bs_Ciudad, bs_tipotam, bs_Ntipo, bs_pertene) " +
-                 "VALUES (@NombreCompleto, @Correo, @Telefono, @Empresa, @Tipo, @FechaIngreso, @Estado, @Mac, @Notas, @Refiere, @Asesor, @Direccion, @Ciudad, @TipoTamaño, @NumTamaño, @Pertenece)";
+                string query = "INSERT INTO bs_main (bs_Nombre, bs_Email, bs_Telef1, bs_Empresa, bs_Tipo, bs_Fecha, bs_Estado, bs_Equipo, bs_Notas, bs_Refiere, bs_vend, bs_Direcci, bs_Ciudad, bs_tipotam, bs_Ntipo, bs_pertene, Id_referi) " +
+                 "VALUES (@NombreCompleto, @Correo, @Telefono, @Empresa, @Tipo, @FechaIngreso, @Estado, @Mac, @Notas, @Refiere, @Asesor, @Direccion, @Ciudad, @TipoTamaño, @NumTamaño, @Pertenece, @Idrefe)";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@NombreCompleto", NombreCompletoRefe);
@@ -232,6 +251,7 @@ namespace Referidos.ViewModels
                 cmd.Parameters.AddWithValue("@TipoTamaño", tipoTamañoEmpresaValue);
                 cmd.Parameters.AddWithValue("@NumTamaño", NumeroEmpleadosOSucursales);
                 cmd.Parameters.AddWithValue("@Pertenece", perteneceAEmpresaValue);
+                cmd.Parameters.AddWithValue("@Idrefe", idrefe);
                 cmd.ExecuteNonQuery();
 
                 // Mostrar la alerta de éxito si el registro fue exitoso
