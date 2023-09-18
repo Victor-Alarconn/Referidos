@@ -36,7 +36,7 @@ namespace Referidos.ViewModels
 
         public ICommand RefiereCommand { get; private set; }
         public ICommand OpenLinkCommand { get; private set; }
-        //public ICommand borrarCommand { get; private set; }
+        public ICommand borrarCommand { get; private set; }
 
         public PrincipalPageViewModel()
         {
@@ -45,7 +45,7 @@ namespace Referidos.ViewModels
             // Inicializar la colección
             ImagePaths = new ObservableCollection<ImageInfo>();
             OpenLinkCommand = new Command(OpenLink);
-            //borrarCommand = new Command(async () => await borrar());
+            borrarCommand = new Command(async () => await ActualizarRegistros());
 
 
             // Cargar las imágenes desde la base de datos
@@ -195,8 +195,42 @@ namespace Referidos.ViewModels
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
-        
+
         }
+
+        private async Task ActualizarRegistros()
+        {
+            try
+            {
+                using MySqlConnection connection = DataConexion.ObtenerConexion();
+                connection.Open();
+
+                // Definir las consultas SQL para actualizar los registros
+                string query1 = "UPDATE bs_grupo SET gr_clave = 'M456' WHERE gr_nombre = 'Ana Mile'";
+                string query2 = "UPDATE bs_grupo SET gr_clave = 'M147' WHERE gr_nombre = 'Yessica'";
+                string query3 = "UPDATE bs_grupo SET gr_clave = '123' WHERE gr_nombre = 'oficina Rm Soft'";
+
+                // Ejecutar las consultas de actualización
+                using MySqlCommand cmd1 = new MySqlCommand(query1, connection);
+                int rowsAffected1 = await cmd1.ExecuteNonQueryAsync();
+
+                using MySqlCommand cmd2 = new MySqlCommand(query2, connection);
+                int rowsAffected2 = await cmd2.ExecuteNonQueryAsync();
+
+                using MySqlCommand cmd3 = new MySqlCommand(query3, connection);
+                int rowsAffected3 = await cmd3.ExecuteNonQueryAsync();
+
+                // Mostrar resultados de las actualizaciones
+                Console.WriteLine($"Registros actualizados para 'Ana Mile': {rowsAffected1}");
+                Console.WriteLine($"Registros actualizados para 'Yessica': {rowsAffected2}");
+                Console.WriteLine($"Registros actualizados para 'oficina Rm Soft': {rowsAffected3}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
 
 
         private static async Task Mover()

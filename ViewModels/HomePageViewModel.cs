@@ -21,7 +21,7 @@ namespace Referidos.ViewsModels
         {
             RegistroCommand = new Command(Aceptar);
             EnvioClaveCommand = new Command(EnviarClave);
-            borrarCommand = new Command(async () => await MostrarRegistros());
+            borrarCommand = new Command(async () => await MostrarRegistrosEspecificos());
         }
 
         private string _clave;
@@ -155,15 +155,15 @@ namespace Referidos.ViewsModels
             }
         }
 
-        private async Task MostrarRegistros()
+        private async Task MostrarRegistrosEspecificos()
         {
             try
             {
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
 
-                // Definir la consulta SQL para obtener todos los registros de la tabla
-                string query = "SELECT * FROM bs_grupo";
+                // Definir la consulta SQL para obtener registros específicos de la tabla
+                string query = "SELECT gr_nombre, gr_mac FROM bs_grupo";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
 
@@ -171,20 +171,49 @@ namespace Referidos.ViewsModels
 
                 if (reader.HasRows)
                 {
-                    Console.WriteLine("Registros de la tabla bs_grupo:");
+                    Console.WriteLine("Registros de la tabla bs_grupo (columnas gr_nombre y gr_mac):");
                     while (await reader.ReadAsync())
                     {
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            Console.Write($"{reader.GetName(i)}: {reader.GetValue(i)}\t");
-                        }
-                        Console.WriteLine();
+                        Console.WriteLine($"gr_nombre: {reader["gr_nombre"]}\tgr_mac: {reader["gr_mac"]}");
                     }
                 }
                 else
                 {
                     Console.WriteLine("No se encontraron registros.");
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+        private async Task ActualizarRegistros()
+        {
+            try
+            {
+                using MySqlConnection connection = DataConexion.ObtenerConexion();
+                connection.Open();
+
+                // Definir las consultas SQL para actualizar los registros
+                string query1 = "UPDATE bs_grupo SET gr_mac = 'NSXDU17909007831' WHERE gr_nombre = 'Ana Mile'";
+                string query2 = "UPDATE bs_grupo SET gr_mac = '6c71347a7036fed3' WHERE gr_nombre = 'Yessica'";
+                string query3 = "UPDATE bs_grupo SET gr_mac = 'dba66641fb5a9b82' WHERE gr_nombre = 'oficina Rm Soft'";
+
+                // Ejecutar las consultas de actualización
+                using MySqlCommand cmd1 = new MySqlCommand(query1, connection);
+                int rowsAffected1 = await cmd1.ExecuteNonQueryAsync();
+
+                using MySqlCommand cmd2 = new MySqlCommand(query2, connection);
+                int rowsAffected2 = await cmd2.ExecuteNonQueryAsync();
+
+                using MySqlCommand cmd3 = new MySqlCommand(query3, connection);
+                int rowsAffected3 = await cmd3.ExecuteNonQueryAsync();
+
+                // Mostrar resultados de las actualizaciones
+                Console.WriteLine($"Registros actualizados para 'Ana Mile': {rowsAffected1}");
+                Console.WriteLine($"Registros actualizados para 'Yessica': {rowsAffected2}");
+                Console.WriteLine($"Registros actualizados para 'oficina Rm Soft': {rowsAffected3}");
             }
             catch (Exception ex)
             {
