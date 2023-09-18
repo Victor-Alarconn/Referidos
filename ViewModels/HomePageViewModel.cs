@@ -21,7 +21,7 @@ namespace Referidos.ViewsModels
         {
             RegistroCommand = new Command(Aceptar);
             EnvioClaveCommand = new Command(EnviarClave);
-            borrarCommand = new Command(async () => await borrar());
+            borrarCommand = new Command(async () => await MostrarRegistros());
         }
 
         private string _clave;
@@ -121,6 +121,78 @@ namespace Referidos.ViewsModels
             }
 
         }
+
+        private async Task MostrarColumnas()
+        {
+            try
+            {
+                using MySqlConnection connection = DataConexion.ObtenerConexion();
+                connection.Open();
+
+                // Definir la consulta SQL para obtener las columnas de la tabla
+                string query = "SHOW COLUMNS FROM bs_grupo";
+
+                using MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                using MySqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+                if (reader.HasRows)
+                {
+                    Console.WriteLine("Columnas de la tabla bs_grupo:");
+                    while (await reader.ReadAsync())
+                    {
+                        Console.WriteLine(reader.GetString("Field"));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No se encontraron columnas.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+        private async Task MostrarRegistros()
+        {
+            try
+            {
+                using MySqlConnection connection = DataConexion.ObtenerConexion();
+                connection.Open();
+
+                // Definir la consulta SQL para obtener todos los registros de la tabla
+                string query = "SELECT * FROM bs_grupo";
+
+                using MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                using MySqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+                if (reader.HasRows)
+                {
+                    Console.WriteLine("Registros de la tabla bs_grupo:");
+                    while (await reader.ReadAsync())
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            Console.Write($"{reader.GetName(i)}: {reader.GetValue(i)}\t");
+                        }
+                        Console.WriteLine();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No se encontraron registros.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+
 
         // Implementar la interfaz INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
