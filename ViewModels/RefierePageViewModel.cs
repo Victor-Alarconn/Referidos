@@ -249,7 +249,8 @@ namespace Referidos.ViewModels
                 cmd.Parameters.AddWithValue("@Direccion", DireccionRefe);
                 cmd.Parameters.AddWithValue("@Ciudad", CiudadRefe);
                 cmd.Parameters.AddWithValue("@TipoTamaño", tipoTamañoEmpresaValue);
-                cmd.Parameters.AddWithValue("@NumTamaño", NumeroEmpleadosOSucursales);
+                int numeroTamaño = string.IsNullOrEmpty(NumeroEmpleadosOSucursales) ? 0 : Convert.ToInt32(NumeroEmpleadosOSucursales);
+                cmd.Parameters.AddWithValue("@NumTamaño", numeroTamaño);
                 cmd.Parameters.AddWithValue("@Pertenece", perteneceAEmpresaValue);
                 cmd.Parameters.AddWithValue("@Idrefe", idrefe);
                 cmd.ExecuteNonQuery();
