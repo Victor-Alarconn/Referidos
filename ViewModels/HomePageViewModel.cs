@@ -21,7 +21,7 @@ namespace Referidos.ViewsModels
         {
             RegistroCommand = new Command(Aceptar);
             EnvioClaveCommand = new Command(EnviarClave);
-            borrarCommand = new Command(async () => await MostrarRegistrosEspecificos());
+            borrarCommand = new Command(async () => await InsertarRegistros());
         }
 
         private string _clave;
@@ -49,7 +49,7 @@ namespace Referidos.ViewsModels
                 return;
             }
 
-            string id = "dba66641fb5a9b82";
+            string id = CrossDeviceInfo.Current.Id;
             try
             {
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
@@ -120,6 +120,56 @@ namespace Referidos.ViewsModels
                 Console.WriteLine($"Error: {ex.Message}");
             }
 
+        }
+
+        private async Task InsertarRegistros()
+        {
+            try
+            {
+                using MySqlConnection connection = DataConexion.ObtenerConexion();
+                connection.Open();
+
+                // Definir la consulta SQL para insertar nuevos registros
+                string query = "INSERT INTO bs_refe (bs_nombre, bs_cargo, bs_correo, bs_telefono, bs_ciudad, bs_empres, bs_clave, bs_estado, bs_vend, bs_fingre) " +
+                               "VALUES (@nombre, @cargo, @correo, @telefono, @ciudad, @empres, @clave, @estado, @vend, @fingre)";
+
+                // Datos para los registros
+                var registros = new[]
+                {
+            new { nombre = "Fernando Ramires", cargo = "Gerente", correo = "administracion@onfotecpereira.com.co", telefono = "3103816874", ciudad = "Pereira", empres = "Infotec com sas", clave = "M248" },
+            new { nombre = "Hector Ortiz", cargo = "Gerente", correo = "mg11@hotmail.com", telefono = "3103858129", ciudad = "Pereira", empres = "MGI", clave = "M426" },
+            new { nombre = "Liliana Arevalo", cargo = "Gerente", correo = "lianarevalo@hotmail.com", telefono = "3136843658", ciudad = "Pereira", empres = "Repuestos Express", clave = "M953" }
+        };
+
+                foreach (var registro in registros)
+                {
+                    using MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@nombre", registro.nombre);
+                    cmd.Parameters.AddWithValue("@cargo", registro.cargo);
+                    cmd.Parameters.AddWithValue("@correo", registro.correo);
+                    cmd.Parameters.AddWithValue("@telefono", registro.telefono);
+                    cmd.Parameters.AddWithValue("@ciudad", registro.ciudad);
+                    cmd.Parameters.AddWithValue("@empres", registro.empres);
+                    cmd.Parameters.AddWithValue("@clave", registro.clave);
+                    cmd.Parameters.AddWithValue("@estado", 1);
+                    cmd.Parameters.AddWithValue("@vend", 3);
+                    cmd.Parameters.AddWithValue("@fingre", DateTime.Now);
+
+                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine($"Registro para {registro.nombre} insertado con éxito.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error al insertar registro para {registro.nombre}.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
 
         private async Task MostrarColumnas()

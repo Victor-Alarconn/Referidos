@@ -84,7 +84,7 @@ namespace Referidos.ViewModels
                     connection.Open();
 
                     // Obtener el ID del dispositivo
-                    string id = "dba66641fb5a9b82";
+                    string id = CrossDeviceInfo.Current.Id;
 
                     // Crear el comando SQL
                     MySqlCommand cmd = new MySqlCommand("SELECT gr_nombre, id_grupo FROM bs_grupo WHERE gr_mac = @id", connection);
