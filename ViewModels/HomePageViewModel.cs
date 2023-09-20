@@ -49,7 +49,7 @@ namespace Referidos.ViewsModels
                 return;
             }
 
-            string id = CrossDeviceInfo.Current.Id;
+            string id = "dba66641fb5a9b82";
             try
             {
                 using MySqlConnection connection = DataConexion.ObtenerConexion();

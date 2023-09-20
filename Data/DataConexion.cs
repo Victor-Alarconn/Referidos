@@ -24,7 +24,6 @@ namespace Referidos.Data
             public static string ConexionActual = conexiones["Produccion"];  
         }
 
-
         public static MySqlConnection ObtenerConexion()
         {
             string connectionString = ConfiguracionBD.ConexionActual;

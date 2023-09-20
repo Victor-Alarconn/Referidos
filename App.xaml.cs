@@ -13,7 +13,7 @@ namespace Referidos
             InitializeComponent();
 
             string claveGuardada = Preferences.Get("ClaveCache", string.Empty);
-            string id = CrossDeviceInfo.Current.Id;
+            string id = "dba66641fb5a9b82";
 
             // Suscríbete al evento de cambio de conectividad
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
