@@ -91,6 +91,17 @@ namespace Referidos.ViewModels
             }
         }
 
+        private string _empresa;
+        public string Empresa
+        {
+            get => _empresa;
+            set
+            {
+                _empresa = value;
+                OnPropertyChanged(nameof(Empresa));
+            }
+        }
+
         private string _asesor;
         public string Asesor
         {
@@ -164,8 +175,8 @@ namespace Referidos.ViewModels
                 Preferences.Set("NombreUsuarioCache", NombreCompleto);
                 Preferences.Set("AsesorCache", Asesor);
 
-                string query = "INSERT INTO bs_refe (bs_nombre, bs_cargo, bs_correo, bs_telefono, bs_ciudad, bs_vend, bs_fingre, bs_estado, bs_mac) " +
-               "VALUES (@NombreCompleto, @Cargo, @Correo, @Telefono, @Ciudad, @Asesor, @FechaIngreso, @Estado, @Mac)";
+                string query = "INSERT INTO bs_refe (bs_nombre, bs_cargo, bs_correo, bs_telefono, bs_ciudad, bs_empres, bs_vend, bs_fingre, bs_estado, bs_mac) " +
+               "VALUES (@NombreCompleto, @Cargo, @Correo, @Telefono, @Ciudad, @Empresa, @Asesor, @FechaIngreso, @Estado, @Mac)";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@NombreCompleto", NombreCompleto);
@@ -173,6 +184,7 @@ namespace Referidos.ViewModels
                 cmd.Parameters.AddWithValue("@Correo", Correo);
                 cmd.Parameters.AddWithValue("@Telefono", Telefono);
                 cmd.Parameters.AddWithValue("@Ciudad", Ciudad);
+                cmd.Parameters.AddWithValue("@Empresa", Empresa);
                 cmd.Parameters.AddWithValue("@Asesor", Asesor);
                 // Agregar la fecha actual al parámetro @FechaIngreso
                 cmd.Parameters.AddWithValue("@FechaIngreso", DateTime.Now);

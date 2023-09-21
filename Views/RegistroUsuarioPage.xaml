@@ -38,6 +38,10 @@
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
+                    <Entry Placeholder="Nombre de la Empresa" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Empresa}" Style="{StaticResource AdaptiveTextStyle}"/>
+                </Frame>
+
+                <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
                     <Entry Placeholder="Codigo del Asesor" FontAttributes="Bold" PlaceholderColor="Black" Text="{Binding Asesor}" Style="{StaticResource AdaptiveTextStyle}" />
                 </Frame>
 
