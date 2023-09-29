@@ -66,8 +66,7 @@ namespace Referidos.ViewsModels
                     {
                         // Guardar la clave en la caché
                         Preferences.Set("ClaveCache", Clave);
-
-                        await Shell.Current.GoToAsync("//RefierePage");
+                        await Shell.Current.GoToAsync($"///RefierePage");
                     }
                     else
                     {
