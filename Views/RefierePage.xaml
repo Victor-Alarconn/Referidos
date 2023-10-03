@@ -51,7 +51,7 @@
                 <!-- Pertenece a la Empresa -->
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
                     <StackLayout>
-                        <Picker Title="Pertenece a la Empresa" TextColor="Black" SelectedItem="{Binding PerteneceAEmpresa}">
+                        <Picker Title="Pertenece a la Empresa" SelectedItem="{Binding PerteneceAEmpresa}">
                             <Picker.Items>
                                 <x:String>Sí</x:String>
                                 <x:String>No</x:String>
@@ -64,7 +64,7 @@
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">
-                    <Picker Title="Seleccionar tipo de Empresa " ItemsSource="{Binding TiposReferencia}"  SelectedItem="{Binding TipoRefe}" Style="{StaticResource AdaptivePickerStyle}" />
+                    <Picker Title="Seleccionar tipo de Empresa " ItemsSource="{Binding TiposReferencia}"  SelectedItem="{Binding TipoRefe}" />
                 </Frame>
 
                 <Frame BorderColor="#512BD4" CornerRadius="12" Padding="5">

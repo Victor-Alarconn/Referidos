@@ -15,19 +15,11 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="AdaptivePickerStyle" TargetType="Picker">
-                <Setter Property="TextColor">
-                    <Setter.Value>
-                        <OnPlatform x:TypeArguments="Color">
-                            <On Platform="iOS" Value="Black" />
-                            <On Platform="Android" Value="Black" />
-                            <On Platform="UWP" Value="Black" />
-                        </OnPlatform>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="BackgroundColor" Value="White" />
-            </Style>
-
+           
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
