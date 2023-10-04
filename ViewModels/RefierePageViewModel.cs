@@ -229,8 +229,8 @@ namespace Referidos.ViewModels
                     return;
                 }
 
-                string query = "INSERT INTO bs_main (bs_Nombre, bs_Email, bs_Telef1, bs_Empresa, bs_Tipo, bs_Fecha, bs_Estado, bs_Equipo, bs_Notas, bs_Refiere, bs_vend, bs_Direcci, bs_Ciudad, bs_tipotam, bs_Ntipo, bs_pertene, Id_referi) " +
-                 "VALUES (@NombreCompleto, @Correo, @Telefono, @Empresa, @Tipo, @FechaIngreso, @Estado, @Mac, @Notas, @Refiere, @Asesor, @Direccion, @Ciudad, @TipoTamaño, @NumTamaño, @Pertenece, @Idrefe)";
+                string query = "INSERT INTO bs_main (bs_Nombre, bs_Email, bs_Telef1, bs_Empresa, bs_Tipo, bs_Fecha, bs_Estado, bs_Equipo, bs_Notas, bs_Refiere, bs_vend, bs_Direcci, bs_Ciudad, bs_tipotam, bs_Ntipo, bs_pertene, Id_referi, bs_Referi) " +
+                 "VALUES (@NombreCompleto, @Correo, @Telefono, @Empresa, @Tipo, @FechaIngreso, @Estado, @Mac, @Notas, @Refiere, @Asesor, @Direccion, @Ciudad, @TipoTamaño, @NumTamaño, @Pertenece, @Idrefe, @Refe)";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@NombreCompleto", NombreCompletoRefe);
@@ -253,6 +253,7 @@ namespace Referidos.ViewModels
                 cmd.Parameters.AddWithValue("@NumTamaño", numeroTamaño);
                 cmd.Parameters.AddWithValue("@Pertenece", perteneceAEmpresaValue);
                 cmd.Parameters.AddWithValue("@Idrefe", idrefe);
+                cmd.Parameters.AddWithValue("@Refe", idrefe);
                 cmd.ExecuteNonQuery();
 
                 // Mostrar la alerta de éxito si el registro fue exitoso
