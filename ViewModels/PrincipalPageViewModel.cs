@@ -45,7 +45,7 @@ namespace Referidos.ViewModels
             // Inicializar la colección
             ImagePaths = new ObservableCollection<ImageInfo>();
             OpenLinkCommand = new Command(OpenLink);
-            borrarCommand = new Command(async () => await InsertarRegistros());
+            borrarCommand = new Command(async () => await borrar());
 
 
             // Cargar las imágenes desde la base de datos
@@ -171,13 +171,14 @@ namespace Referidos.ViewModels
                 using MySqlConnection connection = DataConexion.ObtenerConexion();
                 connection.Open();
 
-                // Definir la consulta SQL para actualizar los registros
-                string query = "UPDATE bs_refe SET bs_vend = 3 WHERE bs_nombre = @nombre";
+                // Definir la consulta SQL para actualizar registros
+                string query = @"
+            UPDATE `porta`.`pt_imgs` SET `pt_links` = 'https://rmsoft.com.co' WHERE (`id` = '1');
+            UPDATE `porta`.`pt_imgs` SET `pt_links` = 'https://rmsoft.com.co/paginaweb/referidos' WHERE (`id` = '2');
+            UPDATE `porta`.`pt_imgs` SET `pt_links` = 'https://rmsoft.com.co/paginaweb/software-almacenes-tecnologicos-en-colombia' WHERE (`id` = '3');
+        ";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
-
-                // Establecer el parámetro para la consulta
-                cmd.Parameters.AddWithValue("@nombre", "ELIUTH NIÑO Salcedo");
 
                 // Ejecutar la consulta
                 int rowsAffected = await cmd.ExecuteNonQueryAsync();
@@ -195,8 +196,9 @@ namespace Referidos.ViewModels
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
-
         }
+
+
 
         private async Task InsertarRegistros()
         {
