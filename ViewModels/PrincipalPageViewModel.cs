@@ -164,7 +164,7 @@ namespace Referidos.ViewModels
             }
         }
 
-        private async Task borrar()
+        private async Task borrar() // Se actuliza portafolio en la nube 
         {
             try
             {
