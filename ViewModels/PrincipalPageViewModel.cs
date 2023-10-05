@@ -173,9 +173,7 @@ namespace Referidos.ViewModels
 
                 // Definir la consulta SQL para actualizar registros
                 string query = @"
-            UPDATE `porta`.`pt_imgs` SET `pt_links` = 'https://rmsoft.com.co' WHERE (`id` = '1');
-            UPDATE `porta`.`pt_imgs` SET `pt_links` = 'https://rmsoft.com.co/paginaweb/referidos' WHERE (`id` = '2');
-            UPDATE `porta`.`pt_imgs` SET `pt_links` = 'https://rmsoft.com.co/paginaweb/software-almacenes-tecnologicos-en-colombia' WHERE (`id` = '3');
+            INSERT INTO `porta`.`pt_conten` (`pt_conte`, `id_pt`) VALUES ('https://rmsoft.com.co/Portafolio/Grupos/Turismo/Contenido/1.jpg', '16');
         ";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
