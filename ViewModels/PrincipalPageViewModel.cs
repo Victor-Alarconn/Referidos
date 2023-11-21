@@ -173,7 +173,24 @@ namespace Referidos.ViewModels
 
                 // Definir la consulta SQL para actualizar registros
                 string query = @"
-            INSERT INTO `porta`.`pt_conten` (`pt_conte`, `id_pt`) VALUES ('https://rmsoft.com.co/Portafolio/Grupos/Turismo/Contenido/1.jpg', '16');
+  UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Parqueadero/Par1.jpg?timestamp=1234567890' WHERE (`id_pt` = '9');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Parqueadero/Par2.jpg?timestamp=1234567890' WHERE (`id_pt` = '10');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Parqueadero/Par3.jpg?timestamp=1234567890' WHERE (`id_pt` = '11');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Parqueadero/Par4.jpg?timestamp=1234567890' WHERE (`id_pt` = '12');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Comercial/_Com1.jpg?timestamp=1234567890' WHERE (`id_pt` = '13');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Comercial/_Com2.jpg?timestamp=1234567890' WHERE (`id_pt` = '14');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Comercial/_Com3.jpg?timestamp=1234567890' WHERE (`id_pt` = '15');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Turismo/Tur1.jpg?timestamp=1234567890' WHERE (`id_pt` = '16');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Turismo/Tur2.jpg?timestamp=1234567890' WHERE (`id_pt` = '17');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Turismo/Tur3.jpg?timestamp=1234567890' WHERE (`id_pt` = '18');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Comercial/_Com4.jpg?timestamp=1234567890' WHERE (`id_pt` = '21');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Comercial/_Com5.jpg?timestamp=1234567890' WHERE (`id_pt` = '22');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Comercial/_Com6.jpg?timestamp=1234567890' WHERE (`id_pt` = '23');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Electro/Elec1.jpg?timestamp=1234567890' WHERE (`id_pt` = '24');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Electro/Elec2.jpg?timestamp=1234567890' WHERE (`id_pt` = '25');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Electro/Elec3.jpg?timestamp=1234567890' WHERE (`id_pt` = '26');
+UPDATE `porta`.`pt_main` SET `pt_url` = 'https://rmsoft.com.co/Portafolio/Soluciones/Electro/Elec4.jpg?timestamp=1234567890' WHERE (`id_pt` = '27');
+
         ";
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
